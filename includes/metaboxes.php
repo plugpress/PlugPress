@@ -5,6 +5,61 @@
  */
 
 
+
+function plugpress_split_metaboxes($data) {
+
+	if (is_array($data->content->left)) {
+		$i = 0;
+		foreach ($data->content->left as $box) {
+			if ($box->type == 'plugins-box') {
+				add_meta_box(
+						'plugpress-plugin-box-' . $i,
+						esc_html($box->name),
+						'plugpress_plugins_box_metabox',
+						'plugpress-split-left',
+						'advanced',
+						'default',
+						array('box' => $box)
+					);
+			}
+			elseif ($box->type == 'plugins-list') {
+				add_meta_box(
+						'plugpress-plugin-box-' . $i,
+						esc_html($box->name),
+						'plugpress_plugins_list_metabox',
+						'plugpress-split-left',
+						'advanced',
+						'default',
+						array('box' => $box)
+					);
+			}
+			elseif ($box->type == 'themes-box') {
+				add_meta_box(
+						'plugpress-theme-box-' . $i,
+						$box->name,
+						'plugpress_themes_box_metabox',
+						'plugpress-split-left',
+						'advanced',
+						'default',
+						array('box' => $box)
+					);
+			}
+			elseif ($box->type == 'html') {
+				add_meta_box(
+						'plugpress-html-box-' . $i,
+						esc_html($box->name),
+						'plugpress_html_metabox',
+						'plugpress-split-left',
+						'advanced',
+						'default',
+						array('box' => $box)
+					);
+			}
+			$i++;
+		}
+	}
+}
+
 /**
  * HTML metabox
  *
@@ -12,13 +67,12 @@
  * @param array $args
  */
 function plugpress_html_metabox($context, $args) {
-		$args = $args['args'];
-		$box = $args['box'];
-		$data = $box->data;
+	$args = $args['args'];
+	$box = $args['box'];
+	$data = $box->data;
 
-		echo $data;
+	echo $data;
 }
-
 
 /**
  * Generate the plugins box metabox

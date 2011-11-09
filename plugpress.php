@@ -15,7 +15,6 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( !class_exists( 'PlugPress' ) ) :
 
 /**
@@ -39,7 +38,6 @@ class PlugPress {
 	public function __construct() {
 		$this->setup_globals();
 		$this->includes();
-		$this->setup_actions();
 	}
 
 	/**
@@ -54,7 +52,6 @@ class PlugPress {
 	 * Includes all needed files
 	 */
 	private function includes() {
-
 		require( $this->plugin_dir . 'includes/core-hooks.php' ); // All filters and actions
 
 		// load admin if needed
@@ -62,13 +59,6 @@ class PlugPress {
 			require( $this->plugin_dir . 'admin/admin.php' );
 		}
 	}
-
-	private function setup_actions() {
-
-	}
-
-
-
 }
 
 $GLOBALS['plugpress'] = new PlugPress();

@@ -40,7 +40,6 @@ class PlugPress_Admin {
 	private function setup_globals() {
 		global $plugpress;
 
-
 		// Admin url
 		$this->admin_dir  = trailingslashit( $plugpress->plugin_dir . 'admin' );
 
@@ -59,10 +58,14 @@ class PlugPress_Admin {
 	}
 
 	private function includes() {
-
+		include $this->admin_dir . 'browse.php';
+		#include $this->admin_dir . 'account.php';
 	}
 
 	private function setup_actions() {
+
+		// Attach the PlugPress admin_init action to the WordPress admin_init action.
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 		// Add menus item to
 		add_action( 'admin_menu', array( $this, 'admin_menus' ) );
@@ -74,7 +77,7 @@ class PlugPress_Admin {
 					__('PlugPress', 'plugpress'),
 					'manage_options',
 					'plugpress-browse',
-					array(&$this, 'menu_browse'),
+					array(&$this, 'menu_browse2'),
 					$this->images_url . 'icon16.png',
 					62
 		);
@@ -83,8 +86,8 @@ class PlugPress_Admin {
 			__('Browse and Find', 'plugpress'),
 			__('Browse and Find', 'plugpress'),
 			'manage_options',
-			'plugpress-browse',
-			array(&$this, 'menu_browse')
+			'plugpress-browse2',
+			'plugpress_admin_browse' #array(&$this, 'menu_browse')
 		);
 
 		add_submenu_page('plugpress-browse',
@@ -113,12 +116,33 @@ class PlugPress_Admin {
 		*/
 	}
 
-	public function menu_browse() {
-		include '';
+	/**
+	 * PlugPress admin_init handling
+	 */
+	public function admin_init() {
+		do_action( 'plugpress_admin_init' );
 	}
 
+	/**
+	 * When clicking the browse menu
+	 */
+	public function menu_browse2() {
+
+	}
+	public function menu_browse() {
+		#print 'before ';
+#		include $this->admin_dir . 'browse.php';
+		#print 'after1 ';
+		#plugpress_admin_browse();
+		#print 'after2 ';
+	}
+
+	/**
+	 * When clicking the my account menu
+	 */
 	public function menu_my_account() {
-		print 'yes!!';exit;
+		add_contextual_help('plugpress_page_plugpress-account', '<p>test3</p>');
+		#print 'yes!!';exit;
 	}
 }
 

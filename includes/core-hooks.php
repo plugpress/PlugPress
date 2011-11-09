@@ -22,6 +22,10 @@ if ( is_admin() ) {
 	// Actions
 	add_action( 'plugpress_init', 'plugpress_admin' );
 
+	add_action( 'plugpress_admin_init', 'plugpress_tmp' );
+	#add_action( 'plugpress_admin_init', 'plugpress_admin_browse', 5 );
+	#add_action( 'plugpress_admin_init', 'plugpress_admin_account', 5 );
+
 
 }
 

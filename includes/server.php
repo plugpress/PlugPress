@@ -9,7 +9,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( !class_exists( 'BBP_Akismet' ) ) :
+if ( !class_exists( 'PlugPress_Server' ) ) :
 
 /**
  * PlugPress Server
