@@ -1,0 +1,239 @@
+/*
+ * PlugPress CSS
+ */
+
+.plugpress-red {color:red;}
+.plugpress-orange{color:#e84e1a;}
+.plugpress-bold {font-weight:bold;}
+.plugpress-right{text-align:right;}
+
+
+.plugpress-nav-tab {
+	border-style: solid;
+	border-color: #ccc #ccc #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-width: 1px 1px 0;
+	color: #c1c1c1;
+	display: inline-block;
+	font-size: 12px;
+	line-height: 16px;
+	margin: 0 6px -1px 0;
+	padding: 4px 14px 6px;
+	text-decoration: none;
+	text-shadow: rgba(255,255,255,1) 0 1px 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-khtml-border-top-left-radius: 5px;
+	-khtml-border-top-right-radius: 5px;
+}
+
+.plugpress-nav-tab-active {
+	border-width: 1px;
+	color: #464646;
+}
+
+h2.plugpress-nav-tab-wrapper, h3.plugpress-nav-tab-wrapper {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 0;
+}
+
+h2 .plugpress-nav-tab {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-weight: 200;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+h3 .plugpress-nav-tab {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-weight: 200;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+
+/*******************************************************************************************************************/
+
+#plugpress-content{ width:100%; }
+#plugpress-content-left{ float:left; width:585px; }
+#plugpress-content-right{ float:left; margin-left:20px; width:175px; }
+
+
+/*******************************************************************************************************************/
+/* Meta Box */
+
+.plugpress-span-plugin-normal{width: 97px;}
+.plugpress-span-theme-normal{width: 173px;}
+.plugpress-td-plugin-normal, .plugpress-td-theme-normal{vertical-align: top;}
+.plugpress-td-plugin-normal a, .plugpress-td-theme-normal a{text-decoration: none;}
+.plugpress-span-plugin-normal, .plugpress-span-theme-normal{
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    display: inline-block;
+    margin: 15px 7px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+}
+
+.plugpress-category-ulist{padding:8px 0 5px 5px;}
+.plugpress-category-olist{padding-top:8px; paddin-bottom:5px;}
+
+.plugpress-plugin-addinfo {
+	font-size: 12px;
+	margin-top:5px;
+}
+
+
+/* Icons */
+.plugpress-img-plugin-normal{height:52px; width:52px; margin-bottom:5px;}
+.plugpress-img-theme-normal{height:110px; width:160px; padding:2px; border:1px solid #ddd; margin-bottom:5px;}
+
+.plugpress-img-plugin-listing {
+	margin-bottom:10px;
+	margin-top:10px;
+}
+
+/*******************************************************************************************************************/
+/* PlugPress Tooltip */
+.plugpress-tip{width:300px; vertical-align:top;}
+.plugpress-toptip{background:#e9fdc5; padding:6px; -moz-border-radius-topleft:6px; -moz-border-radius-topright:6px;	-webkit-border-top-left-radius:6px;	-webkit-border-top-right-radius:6px; border-top-left-radius:6px; border-top-left-radius:6px;}
+.plugpress-toptip-left{float:left; padding-right:20px;}
+.plugpress-toptip-left-image{height:64px; width:64px;}
+.plugpress-toptip-right{float:left; text-align:left;  width:190px; }
+.plugpress-toptip-right-title{font-family: arial,sans-serif; font-size: 15px; font-weight:bold;margin-bottom:3px;}
+.plugpress-bottomtip{}
+.plugpress-bottomtip-description{margin:5px 8px 10px 8px; text-align:left;}
+
+/*******************************************************************************************************************/
+/* ColorTip */
+.plugpress-colorTip-wrapper{text-decoration: none !important; z-index:99999;}
+.plugpress-colorTip{background-color:#FFF; display:none; font-family:Arial,sans-serif; font-size:13px; font-style:normal; position:absolute; text-decoration:none; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; z-index:9999;}
+.plugpress-pointyTip, .plugpress-pointyTipShadow{border:6px solid transparent; bottom:-12px; height:0; left:15%; margin-left:-6px; position:absolute; width:0;}
+.plugpress-pointyTipShadow{border-width:7px; bottom:-14px; margin-left:-7px;}
+.plugpress-colorTipContainer{text-decoration:none !important; overflow:visible; /*position:relative;*/}
+.plugpress-white .plugpress-pointyTip{border-top-color:white;}
+.plugpress-white .plugpress-pointyTipShadow{border-top-color:#ddd;}
+.plugpress-white .plugpress-colorTip{background-color:white; border:1px solid #CCC;color:#555555;}
+
+
+.plugpress-relative { position: relative; }
+
+/*******************************************************************************************************************/
+
+.plugpress-plugindetail-content{margin-top:25px;}
+.plugpress-plugindetail-box-content{padding:5px 10px;}
+.plugpress-plugindetail-box-content-right{font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif; font-size: 11px;}
+
+.plugpress-plugindetail-data pre {border:1px solid #DADADA; background-color:#EAEAEA; clear:both; overflow:auto; padding:10px; width:535px;}
+.plugpress-plugindetail-data ol {margin-bottom:10px; margin-top: 10px;}
+.plugpress-buynow-box{margin-bottom:15px;}
+.plugpress-buynow{border: 1px solid #CCC; border-bottom-color: #517e03; border-right-color: #517e03; color: #f6f6f6; display:block; font-size: 1.4em; line-height:2em; text-align:center; text-decoration:none; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
+.plugpress-buynow:hover{color:#FFF; text-shadow: 1px 1px 1px #000;}
+
+.plugpress-carousel-image{height:110px; width:160px;}
+
+
+
+/*******************************************************************************************************************/
+/* Carousel */
+.plugpress-thumbnail-carousel{padding:15px 0 15px; 0; position:relative; text-align:center;}
+.plugpress-thumbnail-carousel img{background-color: #fff; border: 1px solid #ccc; display: block; float: left; margin: 7px; padding: 1px;}
+a.plugpress-thumbnail-prev, a.plugpress-thumbnail-next{display: inline-block; height: 16px; width: 16px;}
+.plugpress-thumbnail-pagination{text-align: center;}
+.plugpress-thumbnail-pagination a{display: inline-block; height: 15px; margin: 0 5px 0 0; width: 15px;}
+
+/*.plugpress-thumbnail-pagination a.selected{background-position: 0 0; cursor: default;}
+.plugpress-thumbnail-pagination a span {display: none;}*/
+.plugpress-thumbnail-clearfix{float: none;clear: both;}
+
+
+/*******************************************************************************************************************/
+/* Meta boxes */
+
+#plugpress-content .inside h3 {margin:1em 0;}
+#plugpress-content .inside h4 {margin:1em 0;}
+#plugpress-content .inside ul{
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+#plugpress-content .inside .plugpress-ul-normal {
+	list-style-type:none;
+}
+
+#plugpress-content .metabox-holder {
+	padding:0;
+}
+
+.plugpress-postbox-container {
+	width:100%;
+}
+
+.plugpress-postbox-container .postbox .hndle {
+	cursor:default;
+}
+
+.plugpress-postbox-container .postbox {
+	line-height:normal;
+	min-width:175px;
+}
+
+.plugpress-postbox-container .inside {
+	padding-bottom:10px;
+}
+
+.plugpress-box-footer {
+	margin-top:5px;
+	margin-bottom:15px;
+	text-align:right;
+}
+
+.plugpress-box-prefooter {
+	margin-top:10px;
+	margin-bottom:15px;
+	text-align:center;
+}
+
+.plugpress-plugin-information {
+	font-size:0.9em;
+	margin:10px 0;
+}
+
+.plugpress-box-prefooter-right {
+	text-align:right;
+}
+
+/*******************************************************************************************************************/
+/* Modal window */
+/* Z-index of #mask must lower than #boxes .window */
+#plugpress-mask {
+	position:fixed;
+	z-index:9000;
+	background-color:#555;
+	display:none;
+	top:0;
+	left:0;
+}
+
+#plugpress-boxes .plugpress-modal {
+	position:absolute;
+	background:white;
+	display:none;
+	z-index:9999;
+	padding:20px;
+	/*width:600px;
+	height:80px;*/
+}
+
+#plugpress-boxes #plugpress-transaction {
+	font-size:1.2em;
+	font-weight:bold;
+	width:600px;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border:5px solid #7bc200;
+}

@@ -7,7 +7,7 @@
 
 
 function plugpress_split_metaboxes($data) {
-
+	#var_dump($data);
 	if (is_array($data->content->left)) {
 		$i = 0;
 		foreach ($data->content->left as $box) {
@@ -58,6 +58,24 @@ function plugpress_split_metaboxes($data) {
 			$i++;
 		}
 	}
+
+	if (is_array($data->content->right)) {
+		$i = 0;
+		foreach ($data->content->right as $box) {
+			if ($box->type == 'plugin-category-list' || $box->type == 'theme-category-list') {
+				add_meta_box(
+						'plugpress-category-list-' . $i,
+						esc_html($box->name),
+						($box->type == 'plugin-category-list' ? 'plugpress_plugin_category_list_metabox' : 'plugpress_theme_category_list_metabox'),
+						'plugpress-split-right',
+						'advanced',
+						'default',
+						array('data' => $box->data)
+					);
+			}
+			$i++;
+		}
+	}
 }
 
 /**
@@ -68,8 +86,13 @@ function plugpress_split_metaboxes($data) {
  */
 function plugpress_html_metabox($context, $args) {
 	$args = $args['args'];
-	$box = $args['box'];
-	$data = $box->data;
+	if ( isset( $args['box'] ) ) {
+		$box = $args['box'];
+		$data = $box->data;
+	}
+	else {
+		$data = $args['data'];
+	}
 
 	echo $data;
 }
@@ -180,7 +203,7 @@ function plugpress_plugins_list_metabox($context, $args) {
 		if ($box->options['category'] != '') {
 			$slug = '&ppslug=' . $box->options['category'];
 		}
-		$pagination = $this->generatePagination(
+		$pagination = PlugPress_Misc::generatePagination(
 				$box->options['page'],
 				$box->options['pagecount'],
 				'admin.php?page=plugpress-browse&ppsubpage=plugins'. $slug .'&pppage=');
@@ -263,4 +286,294 @@ function plugpress_themes_box_metabox($context, $args) {
 	}
 
 	echo $content;
+}
+
+/**
+ * Plugin category list
+ *
+ * @param string $context box context
+ * @param array $args
+ */
+function plugpress_plugin_category_list_metabox($context, $args) {
+	$args = $args['args'];
+	$data = $args['data'];
+
+	$type = 'unordered';
+	plugpress_category_list_metabox('plugin', $data, $type);
+}
+
+
+/**
+ * Theme category list
+ *
+ * @param string $context box context
+ * @param array $args
+ */
+function plugpress_theme_category_list_metabox($context, $args) {
+	$args = $args['args'];
+	$data = $args['data'];
+
+	$type = 'unordered';
+	plugpress_category_list_metabox('theme', $data, $type);
+}
+
+/**
+ * Generic category list metabox
+ *
+ * @param string $context box context
+ * @param array $args
+ */
+function plugpress_category_list_metabox( $kind , $data, $type = 'unordered' ) {
+	$content = '';
+	$known_type = false;
+
+	if ($kind == 'plugin' || $kind == 'theme') {
+		$known_type = true;
+	}
+
+	if ($known_type) {
+		$content = '<div class="plugpress-category-'. ($type == 'ordered' ? 'o' : 'u') . 'list">' . ($type == 'ordered' ? '<ol' : '<ul') . ' class="plugpress-ul-normal">';
+		foreach($data as $row) {
+			$content .= '<li><a href="admin.php?page=plugpress-browse&ppsubpage='. $kind .'s&ppslug='. $row->slug .'">'. esc_html($row->name) .'</a></li>';
+		}
+		$content .= ($type == 'ordered' ? '</ol>' : '</ul>') . '</div>';
+	}
+
+	echo $content;
+}
+
+
+/**
+ * Generate the metaboxes for a plugin
+ *
+ * @param array $data
+ */
+function plugpress_plugin_metaboxes( $data ) {
+
+	#var_dump($data->content->plugin);
+
+	// Description
+	add_meta_box(
+			'plugpress-plugindetail-description',
+			esc_html( __( 'Description', 'plugpress' ) ),
+			'plugpress_html_metabox',
+			'plugpress-split-left',
+			'advanced',
+			'default',
+			array( 'data' => $data->content->plugin->description )
+		);
+
+	// Screenshots
+	if ( is_array( $data->content->plugin->screenshots ) && count( $data->content->plugin->screenshots ) > 0 ) {
+		add_meta_box(
+				'plugpress-plugindetail-screenshots',
+				esc_html( __( 'Screenshots', 'plugpress' ) ),
+				'plugpress_plugin_screenshots_metabox',
+				'plugpress-split-left',
+				'advanced',
+				'default',
+				array(
+					'data' => $data->content->plugin->screenshots,
+					'httpstatic' => $data->content->httpstatic,
+					'slug' => $data->content->plugin->slug
+				)
+			);
+	}
+
+	// FAQ
+	if ( !empty( $data->content->plugin->faq ) ) {
+	add_meta_box(
+			'plugpress-plugindetail-faq',
+			esc_html( __( 'FAQ', 'plugpress' ) ),
+			'plugpress_html_metabox',
+			'plugpress-split-left',
+			'advanced',
+			'default',
+			array( 'data' => $data->content->plugin->faq )
+		);
+	}
+
+	// Installation
+	if ( !empty( $data->content->plugin->installation ) ) {
+		add_meta_box(
+				'plugpress-plugindetail-installation',
+				esc_html( __( 'Installation', 'plugpress' ) ),
+				'plugpress_html_metabox',
+				'plugpress-split-left',
+				'advanced',
+				'default',
+				array( 'data' => $data->content->plugin->installation )
+			);
+	}
+
+	// Change log
+	if ( !empty( $data->content->plugin->changelog ) ) {
+		add_meta_box(
+				'plugpress-plugindetail-changelog',
+				esc_html( __( 'Change log', 'plugpress' ) ),
+				'plugpress_html_metabox',
+				'plugpress-split-left',
+				'advanced',
+				'default',
+				array( 'data' => $data->content->plugin->changelog )
+			);
+	}
+
+	// upgrade notice
+	if ( !empty( $data->content->plugin->upgradenotice ) ) {
+		add_meta_box(
+				'plugpress-plugindetail-upgradenotice',
+				esc_html( __( 'Upgrade notice', 'plugpress' ) ),
+				'plugpress_html_metabox',
+				'plugpress-split-left',
+				'advanced',
+				'default',
+				array( 'data' => $data->content->plugin->upgradenotice )
+			);
+	}
+
+	// Additional left content
+	$i = 0;
+	foreach( $data->content->left as $html ) {
+		if ( $html->type == 'html' ) {
+			add_meta_box(
+					'plugpress-plugindetail-html-' . $i,
+					$html->name,
+					'plugpress_html_metabox',
+					'plugpress-split-left',
+					'advanced',
+					'default',
+					array( 'data' => $html->data )
+				);
+		}
+
+		$i++;
+	}
+
+
+	////////////////
+	// RIGHT SIDE
+	////////////////
+
+
+	// Information
+	add_meta_box(
+			'plugpress-plugindetail-information',
+			esc_html( __( 'Information', 'plugpress' ) ),
+			'plugpress_plugin_information_metabox',
+			'plugpress-split-right',
+			'advanced',
+			'default',
+			array( 'data' => $data->content->plugin )
+		);
+
+	// Additional right content
+	$i = 0;
+	foreach( $data->content->right as $html ) {
+		if ( $html->type == 'html' ) {
+			add_meta_box(
+					'plugpress-plugindetail-html-' . $i,
+					$html->name,
+					'plugpress_html_metabox',
+					'plugpress-split-right',
+					'advanced',
+					'default',
+					array( 'data' => $html->data )
+				);
+		}
+
+		$i++;
+	}
+}
+
+/**
+ * Displays Screenshots
+ *
+ * @param string $context box context
+ * @param array $args
+ */
+function plugpress_plugin_screenshots_metabox($context, $args) {
+	$args = $args['args'];
+	$data = $args['data'];
+	$httpstatic = $args['httpstatic'];
+	$slug = $args['slug'];
+
+	$content = '<div class="plugpress-thumbnail-carousel">';
+	$content .= '<div id="plugpress-images">';
+	foreach($data as $scr) {
+		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . $scr['description'] . '">';
+		$content .= '<img src="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '_small.' . $scr['sext'] . '" alt="no image" class="plugpress-carousel-image" />';
+		$content .= '</a>';
+	}
+	$content .= '</div>';
+	$content .= '<div class="plugpress-clearfix"></div>';
+	#$content .= '<a class="plugpress-thumbnail-prev" id="plugpress-thumbnail-prev" href="#"><span>prev</span></a>';
+	#$content .= '<a class="plugpress-thumbnail-next" id="plugpress-thumbnail-next" href="#"><span>next</span></a>';
+	$content .= '<div class="plugpress-thumbnail-pagination" id="plugpress-pagination"></div>';
+	$content .= '</div>';
+
+	echo  $content;
+}
+
+
+/**
+ * Displays plugin information metabox content
+ *
+ * @param string $context box context
+ * @param array $args
+ */
+function plugpress_plugin_information_metabox($context, $args) {
+	$args = $args['args'];
+	$data = $args['data'];
+
+	$content = '<div class="plugpress-plugin-information">';
+	$content .= '<b>' . esc_html(__('Version', 'plugpress')) . ':</b><br />';
+	$content .=  esc_html($data->version) . '<br /><br />';
+	$content .= '<b>' . esc_html(__('Author', 'plugpress')) . ':</b><br />';
+	$content .= '<a href="' . $data->authorurl . '" target="_blank">' . esc_html($data->authorname) . '</a><br /><br />';
+	$content .= '<b>' . esc_html(__('Requirements', 'plugpress')) . ':</b><br />';
+	$content .= esc_html(__('WordPress', 'plugpress')) . ' ' . esc_html($data->wordpressrequired) . '+<br /><br />';
+	$content .= '<b>' . esc_html(__('Tested up to', 'plugpress')) . ':</b><br />';
+	$content .= esc_html(__('WordPress', 'plugpress')) . ' ' . esc_html($data->testedupto) . '<br /><br />';
+	if ($data->purchases > 0) {
+		$content .= '<b>' . esc_html(__('Purchases', 'plugpress')) . ':</b><br />';
+		$content .= esc_html(number_format($data->purchases)) . '<br /><br />';
+	}
+
+	if ($data->rating > 0) {
+		$content .= esc_html(__('Rating', 'plugpress')) . ': ';
+		$content .= PlugPress_Misc::getStars($data->rating);
+		$content .= '<br/><small>(' . esc_html(__('Number of votes', 'plugpress')) . ': ' . number_format($data->numrating) . ')</small><br /><br />';
+	}
+
+
+	$content .= '<b>' . esc_html(__('Price', 'plugpress')) . ':</b><br />';
+	if ($data->price == 0) {
+		$content .= esc_html(__('Free', 'plugpress'));
+	}
+	else {
+		$content .= '$' . esc_html($data->price);
+	}
+	$content .= '<br /><br />';
+
+	if ($data->wprepo == 0) {
+		if ($data->support1 != 0 || $data->support6 != 0 || $data->support12 != 0) {
+			$content .= '<b>' . esc_html(__('Support and updates', 'plugpress')) . ':</b><br />';
+
+			if ($data->support1 != 0) {
+				$content .= '$' . esc_html($data->support1) . ' ' . esc_html(__('per month', 'plugpress')) . '<br />';
+			}
+
+			if ($data->support6 != 0) {
+				$content .= '$' . esc_html($data->support6) . ' ' . esc_html(__('per 6 months', 'plugpress')) . '<br />';
+			}
+
+			if ($data->support12 != 0) {
+				$content .= '$' . esc_html($data->support12) . ' ' . esc_html(__('per 12 months', 'plugpress')) . '<br />';
+			}
+		}
+	}
+	$content .= '</div>';
+
+	echo  $content;
 }

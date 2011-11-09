@@ -22,10 +22,14 @@ if ( is_admin() ) {
 	// Actions
 	add_action( 'plugpress_init', 'plugpress_admin' );
 
-	add_action( 'plugpress_admin_init', 'plugpress_tmp' );
-	#add_action( 'plugpress_admin_init', 'plugpress_admin_browse', 5 );
-	#add_action( 'plugpress_admin_init', 'plugpress_admin_account', 5 );
 
+
+	// Filters
+	add_filter('plugins_api', 'plugpress_plugins_api', 10, 3);
+	add_filter('pre_set_site_transient_update_plugins', 'plugpress_pre_set_site_transient_update_plugins', 10, 1);
+
+	add_filter('themes_api', 'plugpress_themes_api', 10, 3);
+	add_filter('pre_set_site_transient_update_themes', 'plugpress_pre_set_site_transient_update_themes', 10, 1);
 
 }
 

@@ -23,7 +23,7 @@ if ( !class_exists( 'PlugPress' ) ) :
 class PlugPress {
 
 	const WEBSITE_URL = 'http://devplugpress/';
-	const API_URL = 'http://devplugpress/';
+	const API_URL = 'http://api.devplugpress/';
 
 	public $version = '1.0.20111107';
 
@@ -52,7 +52,9 @@ class PlugPress {
 	 * Includes all needed files
 	 */
 	private function includes() {
-		require( $this->plugin_dir . 'includes/core-hooks.php' ); // All filters and actions
+		require( $this->plugin_dir . 'includes/core-hooks.php' );	// All filters and actions
+		require( $this->plugin_dir . 'includes/metaboxes.php' );	// Metaboxes
+		require( $this->plugin_dir . 'includes/misc.php' );			// Misc
 
 		// load admin if needed
 		if ( is_admin() ) {

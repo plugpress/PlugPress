@@ -72,7 +72,7 @@ class PlugPress_Server {
 					)
 				);
 
-			#var_dump($raw_response);exit;
+			#var_dump( wp_remote_retrieve_body( $raw_response ) );exit;
 
 			if ( $raw_response !== false ) {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
@@ -223,7 +223,7 @@ class PlugPress_Server {
 	 *
 	 * @return class Data on success, otherwise FALSE.
 	 */
-	protected function get_plugins( $page = 1, $category = '' ) {
+	public function get_plugins( $page = 1, $category = '' ) {
 		$transient_name = 'plugpress_plugins_'. $category .'_data_' . $page;
 		$content = get_transient( $transient_name );
 
@@ -266,7 +266,7 @@ class PlugPress_Server {
 	 *
 	 * @return class Data on success, otherwise FALSE.
 	 */
-	protected function get_theme_information( $slug ) {
+	public function get_theme_information( $slug ) {
 		$transient_name = 'plugpress_theme_'. $slug .'_data';
 		$content = get_transient( $transient_name );
 
@@ -309,7 +309,7 @@ class PlugPress_Server {
 	 *
 	 * @return class Data on success, otherwise FALSE.
 	 */
-	protected function get_themes( $page = 1, $category = '' ) {
+	public function get_themes( $page = 1, $category = '' ) {
 		$transient_name = 'plugpress_plugins_'. $category .'_data_' . $page;
 		$content = get_transient( $transient_name );
 
