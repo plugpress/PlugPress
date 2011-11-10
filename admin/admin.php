@@ -43,6 +43,8 @@ class PlugPress_Admin {
 	private function setup_globals() {
 		global $plugpress;
 
+		$plugpress->username = get_site_option('plugpress_account_user', null);
+
 		// Admin url
 		$this->admin_dir  = trailingslashit( $plugpress->plugin_dir . 'admin' );
 

@@ -2,9 +2,6 @@
 //
 // Plugin Detail View
 //
-
-global $plugpress;
-
 ?>
 
 <style type="text/css">
@@ -17,7 +14,6 @@ a.plugpress-thumbnail-next{background-position: -16px -16px;}
 a.plugpress-thumbnail-next.disabled{background-position: -16px -32px !important; cursor: default;}
 a.plugpress-thumbnail-next:hover{background-position: 0 -16px;}
 a.plugpress-thumbnail-prev span, a.plugpress-thumbnail-next span{display: none;}
-
 
 .plugpress-thumbnail-pagination a{background: url(<?php echo $plugpress->admin->admin_url; ?>images/green-balls.png) -16px 0 no-repeat transparent; width:16px; height:16px; margin:0 5px 0 0; display:inline-block;}
 .plugpress-thumbnail-pagination a.selected{background-position: 0 0; cursor: default;}
@@ -79,7 +75,7 @@ a.pp_arrow_previous,a.pp_arrow_next{display:block;float:left;height:15px;margin-
 .pp_gallery li{display:block;float:left;margin:0 5px 0 0;padding:0}
 .pp_gallery li.default a{background:url(<?php echo $plugpress->admin->admin_url;?>images/facebook/default_thumbnail.gif) 0 0 no-repeat;display:block;height:33px;width:50px}
 .pp_gallery .pp_arrow_previous,.pp_gallery .pp_arrow_next{margin-top:7px!important}
-a.pp_next{background:url(<?php echo PLUGPRESS_FOLDER_URL;?>images/facebook/btnNext.png) 10000px 10000px no-repeat;display:block;float:right;height:100%;text-indent:-10000px;width:49%}
+a.pp_next{background:url(<?php echo $plugpress->admin->admin_url;?>images/facebook/btnNext.png) 10000px 10000px no-repeat;display:block;float:right;height:100%;text-indent:-10000px;width:49%}
 a.pp_previous{background:url(<?php echo $plugpress->admin->admin_url;?>images/facebook/btnNext.png) 10000px 10000px no-repeat;display:block;float:left;height:100%;text-indent:-10000px;width:49%}
 a.pp_expand,a.pp_contract{cursor:pointer;display:none;height:20px;position:absolute;right:30px;text-indent:-10000px;top:10px;width:20px;z-index:20000}
 a.pp_close{position:absolute;right:0;top:0;display:block;line-height:22px;text-indent:-10000px}
@@ -106,6 +102,7 @@ div.facebook .pp_content .ppt,div.facebook #pp_full_res .pp_inline{color:#000}
 		<a href="#" onclick="plugpress_buyit()" class="button-primary"><?php esc_html_e('Proceed'); ?></a>
 		<span id="plugpress_seconds_left"></span>
     </div>
+
     <div id="plugpress-mask"></div>
 </div>
 
@@ -113,7 +110,6 @@ div.facebook .pp_content .ppt,div.facebook #pp_full_res .pp_inline{color:#000}
 <div class="wrap">
 
 <?php
-
 require( $plugpress->admin->admin_dir . 'views/_header.php' );
 ?>
 
@@ -121,7 +117,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 
 <small>
 	<a href="<?php echo get_admin_url(null, 'admin.php?page=plugpress-browse') ?>" title="<?php esc_attr_e(__('PlugPress', 'plugpress')); ?>"><?php esc_html_e(__('PlugPress', 'plugpress')); ?></a> &gt;
-	<a href="<?php echo get_admin_url(null, 'admin.php?page=plugpress-browse&ppsubpage=plugins') ?>" title="<?php esc_attr_e(__('Plugins', 'plugpress')); ?>"><?php esc_html_e(__('Plugins', 'plugpress')); ?></a> &gt;
+	<a href="<?php echo get_admin_url(null, 'admin.php?page=plugpress-browse&ppsubpage=themes') ?>" title="<?php esc_attr_e(__('Themes', 'plugpress')); ?>"><?php esc_html_e(__('Themes', 'plugpress')); ?></a> &gt;
 	<?php echo esc_html($plugpress->admin->header); ?>
 </small>
 
@@ -131,20 +127,11 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<?php echo $plugpress->announcement->top; ?>
 </div>
 
-<?php
-	if ( !empty($plugpress->plugin->testedupto) && version_compare( substr($GLOBALS['wp_version'], 0, strlen($plugpress->plugin->testedupto)), $plugpress->plugin->testedupto, '>') ) {
-		echo '<div class="updated"><p>' . __('<strong>Warning:</strong> This plugin has <strong>not been tested</strong> with your current version of WordPress.', 'plugpress') . '</p></div>';
-	}
-	else if ( !empty($plugpress->plugin->wordpressrequired) && version_compare( substr($GLOBALS['wp_version'], 0, strlen($plugpress->plugin->wordpressrequired)), $plugpress->plugin->wordpressrequired, '<') ) {
-		echo '<div class="updated"><p>' . __('<strong>Warning:</strong> This plugin has <strong>not been marked as compatible</strong> with your version of WordPress.', 'plugpress') . '</p></div>';
-	}
-?>
+
 <div id="plugpress-content">
-
-
 	<div id="plugpress-content-left">
 		<div id="plugpress-left-boxes" class="metabox-holder">
-			<div class="postbox-container plugpress-postbox-container plugpress-plugindetail-data">
+			<div class='postbox-container plugpress-postbox-container'>
 				<?php do_meta_boxes('plugpress-split-left', 'advanced', null); ?>
 			</div>
 		</div>
@@ -152,7 +139,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<div id="plugpress-content-right">
 		<div class="plugpress-buynow-box">
 			<a href="#plugpress-transaction" name="plugpress-modal" class="plugpress-buynow" style="background: url(<?php echo $plugpress->admin->admin_url; ?>images/bgbuttongreen.png)">
-			<?php if ($plugpress->plugin->price == 0) : ?>
+			<?php if ($plugpress->theme->price == 0) : ?>
 				<?php esc_html_e(__('Get for Free!', 'plugpress')); ?>
 			<?php else : ?>
 				<?php esc_html_e(__('Buy Now', 'plugpress')); ?>
@@ -180,7 +167,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 
 <form id="plugpress-form-buy" action="" method="POST" target="_blank">
 	<input type="hidden" name="username" value="<?php esc_attr_e($plugpress->username) ?>" />
-	<input type="hidden" name="slug" value="<?php esc_attr_e($plugpress->plugin->slug) ?>" />
+	<input type="hidden" name="slug" value="<?php esc_attr_e($plugpress->theme->slug) ?>" />
 </form>
 
 
@@ -188,13 +175,11 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 jQuery(document).ready(function($) {
 	//Hack
 	$('.handlediv').remove();
-	//postboxes.add_postbox_toggles(pagenow);
 
 	$("#plugpress-images").carouFredSel({
 		circular: false,
 		infinite: false,
 		auto : false,
-		pagination: '#plugpress-pagination',
 		prev : {
 			button		: "#plugpress-thumbnail-prev",
 			key			: "left",
@@ -215,10 +200,9 @@ jQuery(document).ready(function($) {
 
 function plugpress_buyit() {
 	var f = jQuery("#plugpress-form-buy");
-	f.get(0).setAttribute('action', '<?php echo PLUGPRESS::WEBSITE_URL; ?>buy/plugin');
+	f.get(0).setAttribute('action', '<?php echo PLUGPRESS::WEBSITE_URL; ?>buy/theme');
 	f.submit();
 	jQuery('#plugpress-mask').hide();
 	jQuery('.plugpress-modal').hide();
 }
 </script>
-

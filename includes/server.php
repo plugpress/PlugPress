@@ -295,7 +295,7 @@ class PlugPress_Server {
 			}
 		}
 
-		$this->data = $content->value;
+		return $content->value;
 	}
 
 	/**

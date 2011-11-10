@@ -74,10 +74,16 @@ class PlugPress_Browse_Admin {
 			$plugpress->admin->header = $plugpress->plugin->name;
 			$plugpress->admin->icon = $plugpress->plugin->icon;
 
-			#print $plugpress->plugin->icon;
-
-
 			include( $plugpress->admin->admin_dir . 'views/plugindetail.php' );
+		}
+		elseif ( $this->context == 'themedetail' ) {
+			plugpress_theme_metaboxes( $this->data );
+			$plugpress->theme = $this->data->content->theme;
+
+			$plugpress->admin->header = $plugpress->theme->name;
+			$plugpress->admin->icon = $plugpress->theme->icon;
+
+			include( $plugpress->admin->admin_dir . 'views/themedetail.php' );
 		}
 		else {
 			print 'woooooooo! ' . $this->context;
@@ -139,7 +145,11 @@ class PlugPress_Browse_Admin {
 		elseif ( $_GET['ppsubpage'] == 'themedetail' ) {
 			$this->context = 'themedetail';
 			$plugpress->admin->tab = 'themes';
-			$this->data = null;
+
+			// Slug
+			$slug = $_GET['ppslug'];
+
+			$this->data = $serv->get_theme_information( $slug );
 		}
 		else {
 			wp_die( __( 'Cheatin&#8217; uh?' ) );
