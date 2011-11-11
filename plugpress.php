@@ -11,7 +11,7 @@ License: GPLv2
 
 // Redirect if accessed directly
 if ( !defined( 'ABSPATH' ) ) {
-	include('./index.html');
+	include( './index.html' );
 	exit;
 }
 
@@ -44,8 +44,8 @@ class PlugPress {
 	 * Setup global variables for the class
 	 */
 	private function setup_globals() {
-		$this->plugin_dir = plugin_dir_path(__FILE__);
-		$this->plugin_url = plugin_dir_url(__FILE__);
+		$this->plugin_dir = plugin_dir_path( __FILE__ );
+		$this->plugin_url = plugin_dir_url( __FILE__ );
 	}
 
 	/**

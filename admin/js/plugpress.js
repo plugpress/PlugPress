@@ -13,8 +13,15 @@
             if (!elem.attr('plugpress')) return true;
 
             eval('var data=' + elem.attr('plugpress'));
+
+			var stars= getStarsHtml(data.rating);
+			stars = stars == '' ? 'N/A' : stars + ' (' + data.numrating + ')';
+
+			if (data.name.length >= 48) {
+				data.name = data.name.substr(0, 48) + '...';
+			}
             var toptip_left = '<div class="plugpress-toptip-left"><img src="' + data.thumbnail + '" alt="" class="plugpress-toptip-left-image" /></div>';
-            var toptip_right = '<div class="plugpress-toptip-right"><div class="plugpress-toptip-right-title">' + data.name + '</div>$' + data.price + '</div>';
+            var toptip_right = '<div class="plugpress-toptip-right"><div class="plugpress-toptip-right-title">' + data.name + '</div>$' + data.price + '<div style="padding-top:5px">' + stars + '</div></div>';
             var toptip = '<div class="plugpress-toptip">'+toptip_left + toptip_right + '<div style="clear:both"></div></div>';
             var bottomtip = '<div class="plugpress-bottomtip"><div class="plugpress-bottomtip-description">'+ data.short_description +'</div></div>';
             var content = '<div class="plugpress-tip">' + toptip + bottomtip + '</div>';
@@ -41,6 +48,7 @@
 
         });
     }
+
 
 
     // Tip Class Definition
@@ -125,6 +133,47 @@ jQuery(document).ready(function ($) {
 });
 
 
+function getStarsHtml(rating) {
+	var content='';
+	if (rating > 0) {
+		if (rating >= 15) {
+			content += '<img src="'+plugpress_admin_url+'images/star.png" class="plugpress-star" alt="*" />';
+		}
+		else if (rating > 7) {
+			content += '<img src="'+plugpress_admin_url+'images/halfstar.png" class="plugpress-star" alt="1/2" />';
+		}
+
+		if (rating >= 35) {
+			content += '<img src="'+plugpress_admin_url+'images/star.png" class="plugpress-star" alt="*" />';
+		}
+		else if (rating > 27) {
+			content += '<img src="'+plugpress_admin_url+'images/halfstar.png" class="plugpress-star" alt="1/2" />';
+		}
+
+		if (rating >= 55) {
+			content += '<img src="'+plugpress_admin_url+'images/star.png" class="plugpress-star" alt="*" />';
+		}
+		else if (rating > 47) {
+			content += '<img src="'+plugpress_admin_url+'images/halfstar.png" class="plugpress-star" alt="1/2" />';
+		}
+
+		if (rating >= 75) {
+			content += '<img src="'+plugpress_admin_url+'images/star.png" class="plugpress-star" alt="*" />';
+		}
+		else if (rating > 67) {
+			content += '<img src="'+plugpress_admin_url+'images/halfstar.png" class="plugpress-star" alt="1/2" />';
+		}
+
+		if (rating >= 95) {
+			content += '<img src="'+plugpress_admin_url+'images/star.png" class="plugpress-star" alt="*" />';
+		}
+		else if (rating > 87) {
+			content += '<img src="'+plugpress_admin_url+'images/halfstar.png" class="plugpress-star" alt="1/2" />';
+		}
+	}
+
+	return content;
+}
 
 // Countdown and call a function
 function CountdownAndCall(func_name, seconds, displayid){

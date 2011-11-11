@@ -60,7 +60,13 @@ class PlugPress_Admin {
 		// Admin javascript URL
 		$this->js_url = trailingslashit( $this->admin_url . 'js' );
 
-		$this->header = __('PlugPress', 'plugpress');
+		// Website URL
+		$this->website_url = get_bloginfo( 'siteurl' );
+
+		// Website "secret" key
+		$this->website_key = md5( LOGGED_IN_KEY ) . md5( $this->website_url );
+
+		$this->header = __( 'PlugPress', 'plugpress' );
 		$this->icon = $this->images_url . 'icon32.png';
 		$this->tab = 'home';
 	}
@@ -133,7 +139,8 @@ class PlugPress_Admin {
 
 		add_action('load-' . $browse_page_alt, array( &$this, 'include_browse' ) );
 		add_action('load-' . $browse_page, array( &$this, 'include_browse' ) );
-		#add_action('load-' . $account_page, '' );
+		add_action('load-' . $account_page, array( &$this, 'include_account' ) );
+
 		/*
 		add_submenu_page('plugpress-browse',
 						__('Manage installed plugins on your website', 'plugpress'),
@@ -154,13 +161,21 @@ class PlugPress_Admin {
 	}
 
 	/**
-	 * Manage the
+	 * Manage the include of browse page
 	 */
 	public function include_browse() {
 		include $this->admin_dir . 'browse.php';
 
 		add_action( 'plugpress_admin_init', 'plugpress_admin_browse' );
+	}
 
+	/**
+	 * Manage the include of account page
+	 */
+	public function include_account() {
+		include $this->admin_dir . 'account.php';
+
+		add_action( 'plugpress_admin_init', 'plugpress_admin_account' );
 	}
 
 	/**
@@ -181,8 +196,7 @@ class PlugPress_Admin {
 	 * When clicking the my account menu
 	 */
 	public function menu_my_account() {
-		add_contextual_help('plugpress_page_plugpress-account', '<p>test3</p>');
-		#print 'yes!!';exit;
+		do_action( 'plugpress_account_view' );
 	}
 }
 

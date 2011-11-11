@@ -120,7 +120,7 @@ function plugpress_plugins_box_metabox($context, $args) {
 		foreach($data as $row) {
 			if ($row_num === 1) { $content .= '<tr>'; }
 
-			$infos = '{name: "'. esc_attr($row->name) .'", thumbnail: "'. $row->icon . '", price: ' . $row->price . ', short_description: "' . $row->shortdescription . '"}';
+			$infos = '{name: "'. esc_attr($row->name) .'", thumbnail: "'. $row->icon . '", price: ' . $row->price . ', short_description: "' . $row->shortdescription . '", rating: ' . $row->rating . ', numrating: ' . $row->numrating . '}';
 			$content .= '<td class="plugpress-td-plugin-normal">';
 			$content .= '<a href="admin.php?page=plugpress-browse&ppsubpage=plugindetail&ppslug='. $row->slug .'"><span class="plugpress-span-plugin-normal" plugpress="' . htmlspecialchars($infos) .'"><img src="' . $row->icon . '" class="plugpress-img-plugin-normal" /><br/><b>'. esc_html($row->name) .'</b></span></a></td>';
 
@@ -139,7 +139,7 @@ function plugpress_plugins_box_metabox($context, $args) {
 
 		$footer = '';
 		if (isset($box->options['page']) && isset($box->options['pagecount'])) {
-			$footer = $this->generatePagination(
+			$footer = PlugPress_Misc::generate_pagination(
 				$box->options['page'],
 				$box->options['pagecount'],
 				'admin.php?page=plugpress-browse&ppsubpage=plugins'. $slug .'&pppage=');
@@ -187,7 +187,7 @@ function plugpress_plugins_list_metabox($context, $args) {
 		}
 
 		foreach($data as $row) {
-			$rating = PlugPress_Misc::getStars($row->rating);
+			$rating = PlugPress_Misc::get_stars($row->rating);
 			$content .= '<tr>';
 			$content .= '<td class="plugpress-td-plugin-normal">';
 			$content .= '<a href="admin.php?page=plugpress-browse&ppsubpage=plugindetail&ppslug='. $row->slug .'"><img src="' . $row->icon . '" class="plugpress-img-plugin-normal plugpress-img-plugin-listing" /></a></td>';
@@ -203,7 +203,7 @@ function plugpress_plugins_list_metabox($context, $args) {
 		if ($box->options['category'] != '') {
 			$slug = '&ppslug=' . $box->options['category'];
 		}
-		$pagination = PlugPress_Misc::generatePagination(
+		$pagination = PlugPress_Misc::generate_pagination(
 				$box->options['page'],
 				$box->options['pagecount'],
 				'admin.php?page=plugpress-browse&ppsubpage=plugins'. $slug .'&pppage=');
@@ -260,7 +260,7 @@ function plugpress_themes_box_metabox($context, $args) {
 
 		$footer = '';
 		if (isset($box->options['page']) && isset($box->options['pagecount'])) {
-			$footer = $this->generatePagination(
+			$footer = PlugPress_Misc::generate_pagination(
 				$box->options['page'],
 				$box->options['pagecount'],
 				'admin.php?page=plugpress-browse&ppsubpage=themes'. $slug .'&pppage=');
@@ -544,10 +544,12 @@ function plugpress_plugin_information_metabox($context, $args) {
 
 	if ($data->rating > 0) {
 		$content .= esc_html(__('Rating', 'plugpress')) . ': ';
-		$content .= PlugPress_Misc::getStars($data->rating);
-		$content .= '<br/><small>(' . esc_html(__('Number of votes', 'plugpress')) . ': ' . number_format($data->numrating) . ')</small><br /><br />';
+		$content .= PlugPress_Misc::get_stars( $data->rating );
+		$content .= '<br/><small>(' . esc_html( __( 'Number of votes', 'plugpress' ) ) . ': ' . number_format( $data->numrating ) . ')</small><br /><br />';
 	}
 
+	$content .= '<b>' . esc_html( __( 'Last Update', 'plugpress' ) ) . ':</b><br />';
+	$content .=  esc_html( $data->lastmodified ) . '<br /><br />';
 
 	$content .= '<b>' . esc_html(__('Price', 'plugpress')) . ':</b><br />';
 	if ($data->price == 0) {
@@ -791,10 +793,13 @@ function plugpress_theme_information_metabox( $context, $args ) {
 	}
 
 	if ($data->rating > 0) {
-		$content .= esc_html(__('Rating', 'plugpress')) . ': ';
-		$content .= PlugPress_Misc::getStars($data->rating);
+		$content .= '<b>' . esc_html(__('Rating', 'plugpress')) . ':</b> ';
+		$content .= PlugPress_Misc::get_stars($data->rating);
 		$content .= '<br/><small>(' . esc_html(__('Number of votes', 'plugpress')) . ': ' . number_format($data->numrating) . ')</small><br /><br />';
 	}
+
+	$content .= '<b>' . esc_html( __( 'Last Update', 'plugpress' ) ) . ':</b><br />';
+	$content .=  esc_html( $data->lastmodified ) . '<br /><br />';
 
 	$content .= '<b>' . esc_html(__('Price', 'plugpress')) . ':</b><br />';
 	if ($data->price == 0) {

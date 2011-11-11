@@ -12,7 +12,7 @@ class PlugPress_Misc {
 	 * @param float $rating 0 to 100 rating
 	 * @return string HTML
 	 */
-	public static function getStars($rating) {
+	public static function get_stars($rating) {
 		global $plugpress;
 
 		if ($rating > 0) {
@@ -63,7 +63,7 @@ class PlugPress_Misc {
 	 * @param string $url URL where the page number will be concatenated
 	 * @return string HTML
 	 */
-	public static function generatePagination($page, $pagecount, $url) {
+	public static function generate_pagination($page, $pagecount, $url) {
 		$html = '';
 
 		if ($page > $pagecount) {

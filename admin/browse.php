@@ -3,7 +3,6 @@
  * PlugPress Browse Admin
  */
 
-#print 'called';
 
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
@@ -26,8 +25,6 @@ class PlugPress_Browse_Admin {
 	public function __construct() {
 		$this->setup_globals();
 		$this->setup_actions();
-
-		#$this->home_metaboxes();
 		$this->get_context_data();
 
 		$this->setup_help();
@@ -56,15 +53,15 @@ class PlugPress_Browse_Admin {
 		global $plugpress;
 
 		if ( $this->context == 'home' ) {
-			$this->split_metaboxes();
+			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
 		}
 		elseif ( $this->context == 'plugins' ) {
-			$this->split_metaboxes();
+			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
 		}
 		elseif ( $this->context == 'themes' ) {
-			$this->split_metaboxes();
+			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
 		}
 		elseif ( $this->context == 'plugindetail' ) {
@@ -86,7 +83,7 @@ class PlugPress_Browse_Admin {
 			include( $plugpress->admin->admin_dir . 'views/themedetail.php' );
 		}
 		else {
-			print 'woooooooo! ' . $this->context;
+			wp_die( __( 'Cheatin&#8217; uh?' ) );
 		}
 	}
 
@@ -156,25 +153,56 @@ class PlugPress_Browse_Admin {
 		}
 	}
 
-
-	/**
-	 * Generates the metaboxes needed for split (left-right) view
-	 */
-	public function split_metaboxes() {
-		plugpress_split_metaboxes( $this->data );
-	}
-
 	/**
 	 * Setup contextual help
 	 */
 	public function setup_help() {
 		global $current_screen;
 
+		$help_link =
+			'<p><b>' . __( 'For more information:', 'plugpress' ) . '</b></p>' .
+			'<p><a href="http://www.plugpress.com">' .__( 'PlugPress Website', 'plugpress' ) . '</a></p>' .
+			'<p><a href="http://www.plugpress.com/support">' .__( 'Support and Documentation', 'plugpress' ) . '</a></p>';
+
 		if ( $this->context == 'home' ) {
-			add_contextual_help( $current_screen/*'toplevel_page_plugpress-browse'*/, '<p>Home help!!</p>' );
+			# '<p>' . __( '', 'plugpress' ) . '</p>' .
+			$help =
+				'<p>' . __( 'Welcome to the PlugPress Home.' ) . '</p>' .
+				'<p>' . __( 'You can now start browsing plugins and themes to make your website more powerful.', 'plugpress' ) . '</p>' .
+				'<p>' . __( 'This screen is a resume of what you will find via PlugPress. This page is updated every time we have something new that could improve your website so make sure you come back often.', 'plugpress' ) . '</p>' .
+				'<p>' . __( 'You can choose to browse a specific item types by clicking on the <b>Browse Plugins</b> or <b>Browse Themes</b> tab. To view the complete documentation for PlugPress, simply click on the <b>Help</b> tab.', 'plugpress' ) . '</p>';
+
+			add_contextual_help( $current_screen, $help . $help_link);
 		}
 		elseif ( $this->context == 'plugins' ) {
-			add_contextual_help( $current_screen, '<p>plugins</p>' );
+			$help =
+				'<p>' . __( 'Welcome to the PlugPress Plugins.' ) . '</p>' .
+				'<p>' . __( 'You can now browse the thousands of plugins available via PlugPress', 'plugpress' ) . '</p>' .
+				'<p>' . __( 'On the right side, we organized different groupings to help you find the plugins you need according to the right category.', 'plugpress' ) . '</p>';
+
+			add_contextual_help( $current_screen, $help . $help_link);
+		}
+		elseif ( $this->context == 'themes' ) {
+			$help =
+				'<p>' . __( 'Welcome to the PlugPress Themes.' ) . '</p>' .
+				'<p>' . __( 'You can now browse the hundreds of themes available via PlugPress', 'plugpress' ) . '</p>' .
+				'<p>' . __( 'On the right side, we organized different groupings to help you find the themes you need according to the right category.', 'plugpress' ) . '</p>';
+
+			add_contextual_help( $current_screen, $help . $help_link);
+		}
+		elseif ( $this->context == 'plugindetail' ) {
+			$help =
+				'<p>' . __( 'Welcome to the PlugPress Plugin Detail.' ) . '</p>' .
+				'<p>' . __( 'This page explains exactly what the plugin is all about and contains all the information you need in order to make a decision whether you should buy or not this plugin.', 'plugpress' ) . '</p>';
+
+			add_contextual_help( $current_screen, $help . $help_link);
+		}
+		elseif ( $this->context == 'themedetail' ) {
+			$help =
+				'<p>' . __( 'Welcome to the PlugPress Theme Detail.' ) . '</p>' .
+				'<p>' . __( 'This page explains exactly what the theme is all about and contains all the information you need in order to make a decision whether you should buy or not this theme.', 'plugpress' ) . '</p>';
+
+			add_contextual_help( $current_screen, $help . $help_link);
 		}
 
 	}

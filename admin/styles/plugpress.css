@@ -60,6 +60,7 @@ h3 .plugpress-nav-tab {
 #plugpress-content-left{ float:left; width:585px; }
 #plugpress-content-right{ float:left; margin-left:20px; width:175px; }
 
+#plugpress-content .postbox{margin-bottom:10px}
 
 /*******************************************************************************************************************/
 /* Meta Box */

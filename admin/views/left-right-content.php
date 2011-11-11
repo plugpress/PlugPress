@@ -51,6 +51,8 @@ require( $plugpress->admin->admin_dir . 'views/_menu.php' );
 
 
 <script type='text/javascript'>
+	var plugpress_admin_url = '<?php echo $plugpress->admin->admin_url; ?>';
+
 	jQuery(document).ready(function ($) {
 		//Hack
 		$('.handlediv').remove();
