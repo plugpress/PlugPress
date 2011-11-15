@@ -49,7 +49,7 @@ h2 .plugpress-nav-tab {
 h3 .plugpress-nav-tab {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-weight: 200;
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 24px;
 }
 
@@ -81,6 +81,8 @@ h3 .plugpress-nav-tab {
 
 .plugpress-category-ulist{padding:8px 0 5px 5px;}
 .plugpress-category-olist{padding-top:8px; paddin-bottom:5px;}
+
+.plugpress-category-ulist a, .plugpress-category-olist a{text-decoration: none;}
 
 .plugpress-plugin-addinfo {
 	font-size: 12px;
