@@ -64,6 +64,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<?php endif; ?>
 </td>
 </tr>
+<?php if ($plugpress->username == null) : ?>
 <tr valign="top">
 <th scope="row"><label for="website_url"><?php _e('Website URL', 'plugpress') ?></label></th>
 <td><input name="website_url" type="text" id="website_url" value="<?php esc_attr_e($plugpress->admin->website_url) ?>" class="code" style="width:475px" disabled="disabled" />
@@ -73,6 +74,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 <th scope="row"><label for="website_key"><?php _e('PlugPress Key phrase', 'plugpress') ?></label></th>
 <td><input name="website_key" type="text" id="website_key" value="<?php esc_attr_e($plugpress->admin->website_key) ?>" class="code" style="width:475px" disabled="disabled" /></td>
 </tr>
+<?php endif; ?>
 </table>
 <br /><br />
 
