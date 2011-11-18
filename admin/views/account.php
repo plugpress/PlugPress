@@ -92,7 +92,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 		<th><?php esc_html_e('Plugin Name', 'plugpress') ?></th>
 		<th><?php esc_html_e('Lastest Version', 'plugpress') ?></th>
 		<th><?php esc_html_e('Purchase Date', 'plugpress') ?></th>
-		<th><?php esc_html_e('Support and Updates', 'plugpress') ?></th>
+		<?php /*<th><?php esc_html_e('Support and Updates', 'plugpress') ?></th> */ ?>
 		<th><?php esc_html_e('Status', 'plugpress') ?></th>
 	</tr>
 </thead>
@@ -102,6 +102,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 		<td><a href="admin.php?page=plugpress-browse&ppsubpage=plugindetail&ppslug=<?php echo $plugin->slug; ?>"<b><?php esc_html_e($plugin->name) ?></b></td>
 		<td><?php esc_html_e($plugin->version) ?></td>
 		<td><?php esc_html_e($plugin->purchasedate) ?></td>
+		<?php /*
 		<td>
 			<?php if ($plugin->isactive) : ?>
 			<?php esc_html_e('Yes', 'plugpress')  ?>
@@ -109,6 +110,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 			<span class="plugpress-red plugpress-bold"><?php esc_html_e('No', 'plugpress')  ?></span>
 			<?php endif; ?>
 		</td>
+		*/ ?>
 		<?php
 
 			$status = install_plugin_install_status( $plugin, true );
