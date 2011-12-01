@@ -35,12 +35,12 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<script type="text/javascript">
 		function plugpress_create_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PLUGPRESS_WEBSITE; ?>account/new');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/new');
 			f.submit();
 		}
 		function plugpress_link_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PLUGPRESS_WEBSITE; ?>account/link');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/link');
 			f.submit();
 		}
 	</script>
@@ -49,12 +49,13 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<script type="text/javascript">
 		function plugpress_unlink_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PLUGPRESS_WEBSITE; ?>account/unlink');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/unlink');
 			f.submit();
 			var data = {
 				action: 'plugpress_unlink_account'
 			}
 			jQuery.post(ajaxurl, data, function(response) {
+				alert(response + data);
 				setTimeout(function() { window.location.reload(); }, 2000);
 			});
 
@@ -79,7 +80,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 <br /><br />
 
 
-<?php if ($plugpress->admin->account->purchases != null) : ?>
+<?php if ($plugpress->username != null && $plugpress->admin->account->purchases != null) : ?>
 <h3><?php _e('Plugins') ?></h3>
 <p><?php _e('The following list contains every plugins you bought on PlugPress and their status.', 'plugpress') ?></p>
 
@@ -148,7 +149,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 </table>
 
 <?php else: ?>
-	<p><em><?php esc_html_e('You do not have any plugins linked to your account yet.', 'plugpress') ?></em></p>
+	<p><em><?php esc_html_e('You do not have any plugins linked to your account yet.', 'plugpress') ?></em> <a href="admin.php?page=plugpress-browse"><?php esc_html_e('Browse plugins now', 'plugpress') ?> &raquo;</a></p>
 <?php endif; ?>
 </div>
 <br /><br />
@@ -207,7 +208,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 </table>
 
 <?php else: ?>
-	<p><em><?php _e('You do not have any themes linked to your account yet.', 'plugpress') ?></em></p>
+	<p><em><?php _e('You do not have any themes linked to your account yet.', 'plugpress') ?></em> <a href="admin.php?page=plugpress-browse"><?php esc_html_e('Browse themes now', 'plugpress') ?> &raquo;</a></p>
 <?php endif; ?>
 </div>
 <br /><br />

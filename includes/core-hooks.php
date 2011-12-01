@@ -22,6 +22,7 @@ if ( is_admin() ) {
 	// Actions
 	add_action( 'plugpress_init', 'plugpress_admin' );
 
+	add_action( 'wp_ajax_plugpress_unlink_account', 'plugpress_unlink_callback' );
 
 
 	// Filters
@@ -43,6 +44,20 @@ if ( is_admin() ) {
  */
 function plugpress_init() {
 	do_action( 'plugpress_init' );
+}
+
+/**
+ * Unlink user callback in the database (ajax)
+ */
+function plugpress_unlink_callback() {
+	//print 'ok';exit;
+	$option_name = 'plugpress_account_user';
+	$transient_name = $option_name . '_check';
+
+	$user = delete_site_option($option_name);
+	$user_check = delete_site_transient($transient_name);
+
+	die();
 }
 
 

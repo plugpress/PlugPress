@@ -16,13 +16,13 @@ if ( !class_exists( 'PlugPress_Server' ) ) :
  */
 class PlugPress_Server {
 
-	protected $home_cache_delay = 0;
-	protected $user_linked_cache_delay = 0;
-	protected $user_purchases_cache_delay = 0;
-	protected $plugin_information_cache_delay = 0;
-	protected $plugins_cache_delay = 0;
-	protected $theme_information_cache_delay = 0;
-	protected $themes_cache_delay = 0;
+	protected $home_cache_delay = 1;
+	protected $user_linked_cache_delay = 1;
+	protected $user_purchases_cache_delay = 1;
+	protected $plugin_information_cache_delay = 1;
+	protected $plugins_cache_delay = 1;
+	protected $theme_information_cache_delay = 1;
+	protected $themes_cache_delay = 1;
 
 
 	/**
@@ -36,13 +36,13 @@ class PlugPress_Server {
 	 * Set cache delay
 	 */
 	private function set_cache() {
-		$this->home_cache_delay = 0;
-		$this->user_linked_cache_delay = 0;
-		$this->user_purchases_cache_delay = 0;
-		$this->plugin_information_cache_delay = 0;
-		$this->plugins_cache_delay = 0;
-		$this->theme_information_cache_delay = 0;
-		$this->themes_cache_delay = 0;
+		$this->home_cache_delay = 1;
+		$this->user_linked_cache_delay = 1;
+		$this->user_purchases_cache_delay = 1;
+		$this->plugin_information_cache_delay = 1;
+		$this->plugins_cache_delay = 1;
+		$this->theme_information_cache_delay = 1;
+		$this->themes_cache_delay = 1;
 	}
 
 	/**
@@ -110,6 +110,8 @@ class PlugPress_Server {
 					)
 				);
 
+			#var_dump(wp_remote_retrieve_body( $raw_response ));
+
 			if ( $raw_response !== false ) {
 				$content = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				if ( isset( $content->username ) ) {
@@ -142,6 +144,7 @@ class PlugPress_Server {
 		$purchases = get_site_option( $option_name, null );
 		$purchases_check = get_site_transient( $transient_name );
 
+		#var_dump($purchases, $purchases_check);
 
 		if ( $purchases_check === false || $purchases === null ) {
 			$raw_response = wp_remote_post( PLUGPRESS::API_URL . 'purchases',

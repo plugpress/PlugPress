@@ -16,6 +16,7 @@ if ( !class_exists( 'PlugPress_Account_Admin' ) ) :
  */
 class PlugPress_Account_Admin {
 
+	public $user = null;
 	public $purchases = null;
 	public $context = null;
 
@@ -44,6 +45,8 @@ class PlugPress_Account_Admin {
 	 */
 	private function setup_actions() {
 		add_action( 'plugpress_account_view', array( &$this, 'view' ) );
+
+		add_action( 'wp_ajax_plugpress_unlink_account', array( &$this, 'unlink_callback' ) );
 	}
 
 	/**
@@ -67,10 +70,14 @@ class PlugPress_Account_Admin {
 		// Call external data (if needed)
 		$serv = new PlugPress_Server();
 
+		$this->user = $serv->get_linked_user($plugpress->admin->website_url, $plugpress->admin->website_key);
+
+		if (!isset($plugpress->user)) {
+			$plugpress->username = $this->user;
+		}
+
 		$this->purchases = $serv->get_user_purchases($plugpress->admin->website_url, $plugpress->admin->website_key);
 	}
-
-
 
 	/**
 	 * Setup contextual help
@@ -91,6 +98,21 @@ class PlugPress_Account_Admin {
 			'<p>' . __( 'When linked to an account, this screen displays everything you bought from PlugPress. It enables you to install within a couple of clicks every purchase you have in your account. ', 'plugpress' ) . '</p>';
 
 		add_contextual_help( $current_screen, $help . $help_link);
+	}
+
+	/**
+	 * Unlink an account (meaning delete the username saved in db)
+	 */
+	public static function unlink_callback() {
+		$option_name = 'plugpress_account_user';
+		$transient_name = $option_name . '_check';
+
+		$user = delete_site_option($option_name);
+		$user_check = delete_site_transient($transient_name);
+
+
+
+		die();
 	}
 
 }
