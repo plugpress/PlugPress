@@ -86,11 +86,11 @@ class PlugPress_Admin {
 		wp_register_script('jquery.carouFredSel.js', $this->js_url . 'jquery.carouFredSel.js', array(), false, true);
 		wp_enqueue_script('jquery.carouFredSel.js');
 
-		wp_register_style('PrettyPhoto.css', $this->styles_url . 'PrettyPhoto.css');
-		wp_enqueue_style('PrettyPhoto.css');
+		wp_register_style('prettyPhoto.css', $this->styles_url . 'prettyPhoto.css');
+		wp_enqueue_style('prettyPhoto.css');
 
-		wp_register_script('jquery.PrettyPhoto.js', $this->js_url . 'jquery.PrettyPhoto.js', array(), false, true);
-		wp_enqueue_script('jquery.PrettyPhoto.js');
+		wp_register_script('jquery.prettyPhoto.js', $this->js_url . 'jquery.prettyPhoto.js', array(), false, true);
+		wp_enqueue_script('jquery.prettyPhoto.js');
 
 		#wp_enqueue_script( 'postbox' );
 	}
