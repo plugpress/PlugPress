@@ -78,7 +78,7 @@ class PlugPress_Browse_Admin {
 			$plugpress->theme = $this->data->content->theme;
 
 			$plugpress->admin->header = $plugpress->theme->name;
-			$plugpress->admin->icon = $plugpress->theme->icon;
+			#$plugpress->admin->icon = $plugpress->theme->icon;
 
 			include( $plugpress->admin->admin_dir . 'views/themedetail.php' );
 		}
