@@ -22,10 +22,10 @@ if ( !class_exists( 'PlugPress' ) ) :
  */
 class PlugPress {
 
-	#const WEBSITE_URL = 'http://devplugpress/';
-	#const API_URL = 'http://api.devplugpress/';
+	#const WEBSITE_URL = 'http://devplugpress.local/';
+	#const API_URL = 'http://api.devplugpress.local/';
 
-	const WEBSITE_URL = 'https://www.plugpress.com/';
+	const WEBSITE_URL = 'http://www.plugpress.com/';
 	const API_URL = 'http://api.plugpress.com/';
 
 	public $version = '0.8.3';
