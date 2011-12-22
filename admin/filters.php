@@ -142,21 +142,32 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 	if ( 200 != $raw_response['response']['code'] )
 		return $value;
 
-	$response = unserialize( wp_remote_retrieve_body($raw_response) );
+	$response = unserialize( wp_remote_retrieve_body( $raw_response ) );
 
 	#var_dump(wp_remote_retrieve_body($raw_response));exit;
 	#var_dump($response);exit;
 
 	$new_option = new stdClass;
 	$new_option->last_checked = time();
-	if ( false !== $response )
+	if ( false !== $response ) {
+		$url = urlencode( get_bloginfo( 'siteurl' ) );
+		$key = urlencode( md5( LOGGED_IN_KEY ) . md5( $this->website_url ) );
+
+		$new_reponse = array();
+		foreach($response as $plugin) {
+			$plugin->package .= "?u={$url}&k={$key}";
+			$new_reponse[] = $plugin;
+		}
+
 		$new_option->response = $response;
-	else
+	}
+	else {
 		$new_option->response = array();
+	}
 
-	set_site_transient('plugpress_update_plugins', $new_option);
+	set_site_transient( 'plugpress_update_plugins', $new_option );
 
-	$response = array_merge($value->response, $new_option->response);
+	$response = array_merge( $value->response, $new_option->response );
 	$value->response = $response;
 
 	return $value;
@@ -223,10 +234,7 @@ function plugpress_pre_set_site_transient_update_themes($value) {
 	$response = unserialize( wp_remote_retrieve_body( $raw_response ) );
 	if ( false !== $response ) {
 		$new_update->response = $response;
-	}/*
-	else {
-		print 'oops';exit;
-	}*/
+	}
 
 	set_site_transient( 'plugpress_update_themes', $new_update );
 

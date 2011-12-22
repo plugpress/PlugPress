@@ -79,7 +79,7 @@ h3 .plugpress-nav-tab {
     vertical-align: top;
 }
 
-.plugpress-category-ulist{padding:8px 0 5px 5px;}
+.plugpress-category-ulist{/*padding:8px 0 5px 5px;*/}
 .plugpress-category-olist{padding-top:8px; paddin-bottom:5px;}
 
 .plugpress-category-ulist a, .plugpress-category-olist a{text-decoration: none;}
@@ -185,7 +185,7 @@ a.plugpress-thumbnail-prev, a.plugpress-thumbnail-next{display: inline-block; he
 }
 
 .plugpress-postbox-container .inside {
-	padding-bottom:10px;
+	/*padding-bottom:10px;*/
 }
 
 .plugpress-box-footer {
