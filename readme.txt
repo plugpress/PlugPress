@@ -32,7 +32,7 @@ Yes! PlugPress is simply the link that connects all website owners with plugins 
 = Can I use my account on all my websites ? =
 
 Of course. That way, you won't have to remember everything you used in the past.  Make sure you
-check our [Terms of Service](https://www.plugpress.com/terms) as some plugins and themes may have some download limitations.
+check our [Terms of Service](http://www.plugpress.com/terms) as some plugins and themes may have some download limitations.
 
 
 == Changelog ==
