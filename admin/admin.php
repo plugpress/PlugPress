@@ -80,6 +80,11 @@ class PlugPress_Admin {
 		wp_register_style('plugpress.css', $this->styles_url . 'plugpress.css');
 		wp_enqueue_style('plugpress.css');
 
+		if (version_compare($wp_version, '3.2.1', '<=')) {
+			wp_register_style('plugpress.wp-3.2.1.css', $this->styles_url . 'plugpress.wp-3.2.1.css');
+			wp_enqueue_style('plugpress.wp-3.2.1.css');
+		}
+
 		wp_register_script('plugpress.js', $this->js_url . 'plugpress.js', array(), false, true);
 		wp_enqueue_script('plugpress.js');
 
