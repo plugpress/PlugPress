@@ -151,7 +151,7 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 	$new_option->last_checked = time();
 	if ( false !== $response ) {
 		$url = urlencode( get_bloginfo( 'siteurl' ) );
-		$key = urlencode( md5( LOGGED_IN_KEY ) . md5( $this->website_url ) );
+		$key = urlencode( md5( LOGGED_IN_KEY ) . md5( $plugpress->admin->website_url ) );
 
 		$new_reponse = array();
 		foreach($response as $plugin) {
