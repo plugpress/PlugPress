@@ -18,7 +18,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
  */
 function plugpress_plugins_api($res, $action, $args) {
 	if (strpos($args->slug, 'plugpress-') === 0) {
-		$request = wp_remote_post(PLUGPRESS_PLUGIN_API_URL . 'infoplugin',
+		$request = wp_remote_post(PlugPress::API_URL . 'infoplugin',
 				array(
 					'timeout' => 15,
 					'body' =>
@@ -58,7 +58,7 @@ function plugpress_plugins_api($res, $action, $args) {
 function plugpress_themes_api($res, $action, $args) {
 	if (strpos($args->slug, 'plugpress-') === 0) {
 
-		$request = wp_remote_post(PLUGPRESS_PLUGIN_API_URL . 'infotheme',
+		$request = wp_remote_post(PlugPress::API_URL . 'infotheme',
 				array(
 					'timeout' => 15,
 					'body' =>
@@ -132,7 +132,7 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 		'user-agent' => 'PlugPress/' . PLUGPRESS_VERSION . '; ' . get_bloginfo( 'url' ) . '; WP-' . $wp_version
 		);
 
-	$raw_response = wp_remote_post(PLUGPRESS_PLUGIN_API_URL . 'plugins/updatecheck', $options);
+	$raw_response = wp_remote_post(PlugPress::API_URL . 'plugins/updatecheck', $options);
 
 	#var_dump(wp_remote_retrieve_body($raw_response));exit;
 
@@ -222,7 +222,7 @@ function plugpress_pre_set_site_transient_update_themes($value) {
 		'user-agent' => 'PlugPress/' . PLUGPRESS_VERSION . '; ' . get_bloginfo( 'url' ) . '; WP-' . $wp_version
 	);
 
-	$raw_response = wp_remote_post(PLUGPRESS_PLUGIN_API_URL . 'themes/updatecheck', $options );
+	$raw_response = wp_remote_post(PlugPress::API_URL . 'themes/updatecheck', $options );
 
 	if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) )
 		return $value;
