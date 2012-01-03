@@ -1,6 +1,6 @@
 === PlugPress ===
 Contributors: plugpress
-Tags: plugpress, plugins, themes, find plugins, find themes, ecommerce, app store, store, commerce, sell, buy
+Tags: plugpress, plugins, themes, find plugins, find themes, app store, store, sell, buy
 Requires at least: 3.2
 Tested up to: 3.3
 Stable tag: 0.8.3
