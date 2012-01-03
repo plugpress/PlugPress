@@ -11,8 +11,6 @@ PlugPress is an app store that enables you to find the best plugins and themes f
 
 PlugPress is an app store for WordPress that gives you access to the best plugins and themes for your website.
 
-[vimeo http://vimeo.com/32931715]
-
 From your administration section, you can browse free and premium WordPress plugins and WordPress themes submitted by the best developers.
 The time where you had to search the web is now over.  PlugPress does it all for you!  We even manage updates so
 that your website is always up to date and secure.
