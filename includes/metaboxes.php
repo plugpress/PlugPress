@@ -505,7 +505,7 @@ function plugpress_plugin_screenshots_metabox($context, $args) {
 	$content = '<div class="plugpress-thumbnail-carousel">';
 	$content .= '<div id="plugpress-images">';
 	foreach($data as $scr) {
-		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . $scr['description'] . '">';
+		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . esc_attr($scr['description']) . '">';
 		$content .= '<img src="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '_small.' . $scr['sext'] . '" alt="no image" class="plugpress-carousel-image" />';
 		$content .= '</a>';
 	}
