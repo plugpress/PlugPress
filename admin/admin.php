@@ -75,6 +75,7 @@ class PlugPress_Admin {
 	 * Include files needed to make PlugPress work
 	 */
 	private function includes() {
+		global $wp_version;
 		require( $this->admin_dir . 'filters.php' );	// Admin filters
 
 		wp_register_style('plugpress.css', $this->styles_url . 'plugpress.css');
