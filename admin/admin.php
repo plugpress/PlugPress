@@ -124,7 +124,7 @@ class PlugPress_Admin {
 					'plugpress-browse',
 					array( &$this, 'menu_browse' ),
 					$this->images_url . 'icon16.png',
-					62
+					3
 		);
 
 		$browse_page_alt = add_submenu_page( 'plugpress-browse',
