@@ -55,7 +55,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 				action: 'plugpress_unlink_account'
 			}
 			jQuery.post(ajaxurl, data, function(response) {
-				alert(response + data);
+				//alert(response + data);
 				setTimeout(function() { window.location.reload(); }, 2000);
 			});
 
