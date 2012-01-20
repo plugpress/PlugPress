@@ -47,11 +47,12 @@ class PlugPress_Account_Admin {
 		add_action( 'plugpress_account_view', array( &$this, 'view' ) );
 
 		add_action( 'wp_ajax_plugpress_unlink_account', array( &$this, 'unlink_callback' ) );
+
+
 	}
 
 	/**
 	 * View
-	 *
 	 */
 	public function view() {
 		global $plugpress;
@@ -61,7 +62,6 @@ class PlugPress_Account_Admin {
 
 	/**
 	 * Get data depending on the context
-	 *
 	 */
 	private function get_context_data() {
 		global $plugpress;
@@ -70,10 +70,14 @@ class PlugPress_Account_Admin {
 		// Call external data (if needed)
 		$serv = new PlugPress_Server();
 
-		$this->user = $serv->get_linked_user($plugpress->admin->website_url, $plugpress->admin->website_key);
+		$this->user = $serv->get_linked_user( $plugpress->admin->website_url, $plugpress->admin->website_key );
 
-		if (!isset($plugpress->user)) {
+		if ( ! isset($plugpress->user ) ) {
 			$plugpress->username = $this->user;
+		}
+
+		if ( strpos( $plugpress->username, ' ') === 0 ) {
+			add_action( 'admin_notices', array( &$this, 'unconfirmedAccount' ) );
 		}
 
 		$this->purchases = $serv->get_user_purchases($plugpress->admin->website_url, $plugpress->admin->website_key);
@@ -93,11 +97,15 @@ class PlugPress_Account_Admin {
 
 		# '<p>' . __( '', 'plugpress' ) . '</p>' .
 		$help =
-			'<p>' . __( 'Welcome to the PlugPress Account.' ) . '</p>' .
+			'<p>' . __( 'Welcome to the PlugPress Account.', 'plugpress' ) . '</p>' .
 			'<p>' . __( 'If this is your first time here, start by creating an account or linking to an existing account.  Simply follow the steps!', 'plugpress' ) . '</p>' .
 			'<p>' . __( 'When linked to an account, this screen displays everything you bought from PlugPress. It enables you to install within a couple of clicks every purchase you have in your account. ', 'plugpress' ) . '</p>';
 
 		add_contextual_help( $current_screen, $help . $help_link);
+	}
+
+	public function unconfirmedAccount() {
+		echo '<div class="updated"><p><b>' .  __( 'Your account is unconfirmed. Check your emails (including your SPAM) and confirm it by clicking on confirmation link.', 'plugpress' ) . '</b></p></div>';
 	}
 
 	/**

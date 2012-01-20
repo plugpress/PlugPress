@@ -2,17 +2,17 @@
 // Originally taken from http://tutorialzine.com/2010/07/colortips-jquery-tooltip-plugin/
 //
 (function ($) {
-    $.fn.colorTip = function () {
-        var settings = { color: 'plugpress-white', timeout: 0 }
+	$.fn.colorTip = function () {
+		var settings = {color: 'plugpress-white', timeout: 0}
 
-        //	Looping through all the elements and returning them afterwards.
-        //	This will add chainability to the plugin.
-        return this.each(function () {
-            var elem = $(this);
+		//	Looping through all the elements and returning them afterwards.
+		//	This will add chainability to the plugin.
+		return this.each(function () {
+			var elem = $(this);
 
-            if (!elem.attr('plugpress')) return true;
+			if (!elem.attr('plugpress')) return true;
 
-            eval('var data=' + elem.attr('plugpress'));
+			eval('var data=' + elem.attr('plugpress'));
 
 			var stars= getStarsHtml(data.rating);
 			stars = stars == '' ? 'N/A' : stars + ' (' + data.numrating + ')';
@@ -20,99 +20,106 @@
 			if (data.name.length >= 48) {
 				data.name = data.name.substr(0, 48) + '...';
 			}
-            var toptip_left = '<div class="plugpress-toptip-left"><img src="' + data.thumbnail + '" alt="" class="plugpress-toptip-left-image" /></div>';
-            var toptip_right = '<div class="plugpress-toptip-right"><div class="plugpress-toptip-right-title">' + data.name + '</div>$' + data.price + '<div style="padding-top:5px">' + stars + '</div></div>';
-            var toptip = '<div class="plugpress-toptip">'+toptip_left + toptip_right + '<div style="clear:both"></div></div>';
-            var bottomtip = '<div class="plugpress-bottomtip"><div class="plugpress-bottomtip-description">'+ data.short_description +'</div></div>';
-            var content = '<div class="plugpress-tip">' + toptip + bottomtip + '</div>';
+			var toptip_left = '<div class="plugpress-toptip-left"><img src="' + data.thumbnail + '" alt="" class="plugpress-toptip-left-image" /></div>';
+			var toptip_right = '<div class="plugpress-toptip-right"><div class="plugpress-toptip-right-title">' + data.name + '</div>$' + data.price + '<div style="padding-top:5px">' + stars + '</div></div>';
+			var toptip = '<div class="plugpress-toptip">'+toptip_left + toptip_right + '<div style="clear:both"></div></div>';
+			var bottomtip = '<div class="plugpress-bottomtip"><div class="plugpress-bottomtip-description">'+ data.short_description +'</div></div>';
+			var content = '<div class="plugpress-tip">' + toptip + bottomtip + '</div>';
 
-            var tip = new Tip(content);
-            elem.prepend(tip.generate()).addClass('plugpress-colorTipContainer');
+			var tip = new Tip(content);
+			elem.prepend(tip.generate()).addClass('plugpress-colorTipContainer');
 
-            // set the default color
-            elem.addClass(settings.color);
+			// set the default color
+			elem.addClass(settings.color);
 
-            // On mouseenter, show the tip, on mouseleave set the tip to be hidden
-            elem.hover(function () {
+			// On mouseenter, show the tip, on mouseleave set the tip to be hidden
+			elem.hover(function () {
 
 				elem.addClass('plugpress-relative');
 
-                tip.show();
-            }, function () {
-                tip.hide('1');
-            });
+				tip.show();
+			}, function () {
+				tip.hide('1');
+			});
 
-            tip.tip.mouseenter(function () {
-                tip.hide('2');
-            });
+			tip.tip.mouseenter(function () {
+				tip.hide('2');
+			});
 
-        });
-    }
+		});
+	}
 
 
 
-    // Tip Class Definition
-    function Tip(txt) {
-        this.content = txt;
-        this.shown = false;
-    }
-    Tip.prototype = {
-        generate: function () {
-            if (this.tip == null) {
-                this.tip = $('<span class="plugpress-colorTip">' + this.content + '<span class="plugpress-pointyTipShadow"></span><span class="plugpress-pointyTip"></span></span>');
-            }
-            return this.tip;
-        },
-        show: function () {
-            if (this.shown) { return; }
+	// Tip Class Definition
+	function Tip(txt) {
+		this.content = txt;
+		this.shown = false;
+	}
+	Tip.prototype = {
+		generate: function () {
+			if (this.tip == null) {
+				this.tip = $('<span class="plugpress-colorTip">' + this.content + '<span class="plugpress-pointyTipShadow"></span><span class="plugpress-pointyTip"></span></span>');
+			}
+			return this.tip;
+		},
+		show: function () {
+			if (this.shown) {
+				return;
+			}
 
-            // Center the tip and start a fadeIn animation
-            this.tip.css('top',  - (this.tip.outerHeight() + 10));
-            this.tip.css('left', 0); //left);
+			// Center the tip and start a fadeIn animation
+			this.tip.css('top',  - (this.tip.outerHeight() + 10));
+			this.tip.css('left', 0); //left);
 			this.tip.css('z-index', 999999);
-            this.tip.fadeIn('fast');
-            this.shown = true;
-        },
-        hide: function (num) {
-            this.tip.hide();
-            this.shown = false;
-        }
-    }
+			this.tip.fadeIn('fast');
+			this.shown = true;
+		},
+		hide: function (num) {
+			this.tip.hide();
+			this.shown = false;
+		}
+	}
 })(jQuery);
 
 
 
 jQuery(document).ready(function ($) {
-    $('[plugpress]').colorTip();
+	$('[plugpress]').colorTip();
 
 
-    // Modal window
-    $('a[name=plugpress-modal]').click(function(e) {
-        e.preventDefault();
-        var id = $(this).attr('href');
+	// Modal window
+	$('a[name=plugpress-modal]').click(function(e) {
+		e.preventDefault();
+		var id = $(this).attr('href');
 
-        //Get the screen height and width
-        var maskHeight = $(document).height();
-        var maskWidth = $(window).width();
+		//Get the screen height and width
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
 
-        //Set height and width to mask to fill up the whole screen
+		//Set height and width to mask to fill up the whole screen
 		var msk = $('#plugpress-mask');
-        msk.css({'width':maskWidth,'height':maskHeight});
+		msk.css({
+			'width':maskWidth,
+			'height':maskHeight
+		});
 
-        //transition effect
-        //msk.fadeIn(500);
-        msk.fadeTo("fast",0.75);
+		//transition effect
+		//msk.fadeIn(500);
+		msk.fadeTo("fast",0.75);
 
-        //Get the window height and width
-        var winH = $(window).height();
-        var winW = $(window).width();
+		//Get the window height and width
+		var winH = $(window).height();
+		var winW = $(window).width();
 
-        //Set the popup window to center
-        $(id).css('top',  winH/4 - $(id).height()/2);
-        $(id).css('left', winW/2 - $(id).width()/2);
+		console.log('w: ' + winW + ', h: ' + winH);
 
-        //transition effect
-        $(id).fadeIn(700);
+		//Set the popup window to center
+		$(id).css('top',  winH/4 - $(id).height()/2);
+		$(id).css('left', winW/2 - $(id).width()/2);
+
+		//transition effect
+		$(id).fadeIn(700);
 
 		var callback = $(this).attr('callback');
 		var sec = $(this).attr('seconds');
@@ -123,13 +130,13 @@ jQuery(document).ready(function ($) {
 			if (!secondid) secondid = '';
 			CountdownAndCall(callback, sec, secondid);
 		}
-    });
+	});
 
-    //if mask is clicked
-    $('#plugpress-mask').click(function () {
-        $(this).hide();
-        $('.plugpress-modal').hide();
-    });
+	//if mask is clicked
+	$('#plugpress-mask').click(function () {
+		$(this).hide();
+		$('.plugpress-modal').hide();
+	});
 });
 
 
@@ -177,16 +184,16 @@ function getStarsHtml(rating) {
 
 // Countdown and call a function
 function CountdownAndCall(func_name, seconds, displayid){
-    var sec = jQuery('#' + displayid);
+	var sec = jQuery('#' + displayid);
 	if (sec) {
 		sec.text(seconds)
 	}
-    if (seconds <= 0) {
+	if (seconds <= 0) {
 		if (func_name) {
 			eval(func_name + '();');
 		}
 	}
-    else {
+	else {
 		setTimeout('CountdownAndCall("' + func_name + '", ' + --seconds + ',"'+ displayid +'")', 1000);
 	}
 }

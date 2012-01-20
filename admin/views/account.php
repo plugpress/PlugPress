@@ -45,6 +45,8 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 		}
 	</script>
 
+	<?php elseif ( strpos( $plugpress->username, ' ' ) === 0 ): ?>
+		<b class="plugpress-red"><?php esc_html_e($plugpress->username) ?></b>
 	<?php else: ?>
 	<script type="text/javascript">
 		function plugpress_unlink_account() {
@@ -80,7 +82,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 <br /><br />
 
 
-<?php if ($plugpress->username != null && $plugpress->admin->account->purchases != null) : ?>
+<?php if ($plugpress->username != null && strpos( $plugpress->username, ' ' ) === false && $plugpress->admin->account->purchases != null) : ?>
 <h3><?php _e('Plugins') ?></h3>
 <p><?php _e('The following list contains every plugins you bought on PlugPress and their status.', 'plugpress') ?></p>
 

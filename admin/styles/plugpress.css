@@ -133,7 +133,7 @@ h3 .plugpress-nav-tab {
 .plugpress-plugindetail-data pre {border:1px solid #DADADA; background-color:#EAEAEA; clear:both; overflow:auto; padding:10px; width:535px;}
 .plugpress-plugindetail-data ol {margin-bottom:10px; margin-top: 10px;}
 .plugpress-buynow-box{margin-bottom:15px;}
-.plugpress-buynow{border: 1px solid #CCC; border-bottom-color: #517e03; border-right-color: #517e03; color: #f6f6f6; display:block; font-size: 1.4em; line-height:2em; text-align:center; text-decoration:none; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
+.plugpress-buynow{border: 1px solid #CCC; border-bottom-color: #517e03; border-right-color: #517e03; color: #f6f6f6; display:block; font-size: 1.4em; font-weight: bold; line-height:2em; text-align:center; text-decoration:none; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
 .plugpress-buynow:hover{color:#FFF; text-shadow: 1px 1px 1px #000;}
 
 .plugpress-carousel-image{height:110px; width:160px;}
@@ -222,7 +222,7 @@ a.plugpress-thumbnail-prev, a.plugpress-thumbnail-next{display: inline-block; he
 }
 
 #plugpress-boxes .plugpress-modal {
-	position:absolute;
+	position:fixed;
 	background:white;
 	display:none;
 	z-index:9999;

@@ -116,8 +116,14 @@ class PlugPress_Server {
 				$content = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				if ( isset( $content->username ) ) {
 					$user = $content->username;
-					$u = update_site_option( $option_name, $user );
-					$t = set_site_transient( $transient_name, true, $this->user_linked_cache_delay );
+
+					#var_dump($user);
+
+					// If username start with space, error!
+					if ( null != $user && strpos( $user, ' ' ) !== 0 ) {
+						$u = update_site_option( $option_name, $user );
+						$t = set_site_transient( $transient_name, true, $this->user_linked_cache_delay );
+					}
 				}
 				else {
 					delete_site_option( $option_name );

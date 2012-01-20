@@ -181,6 +181,8 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 <form id="plugpress-form-buy" action="" method="POST" target="_blank">
 	<input type="hidden" name="username" value="<?php esc_attr_e($plugpress->username) ?>" />
 	<input type="hidden" name="slug" value="<?php esc_attr_e($plugpress->plugin->slug) ?>" />
+	<input type="hidden" name="url" value="<?php esc_attr_e($plugpress->admin->website_url) ?>" />
+	<input type="hidden" name="key" value="<?php esc_attr_e($plugpress->admin->website_key) ?>" />
 </form>
 
 
