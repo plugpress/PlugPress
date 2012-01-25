@@ -227,11 +227,10 @@ a.plugpress-thumbnail-prev, a.plugpress-thumbnail-next{display: inline-block; he
 	display:none;
 	z-index:9999;
 	padding:20px;
-	/*width:600px;
-	height:80px;*/
 }
 
 #plugpress-boxes #plugpress-transaction {
+	position:fixed;
 	font-size:1.2em;
 	font-weight:bold;
 	width:600px;

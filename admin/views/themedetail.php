@@ -202,7 +202,7 @@ jQuery(document).ready(function($) {
 
 function plugpress_buyit() {
 	var f = jQuery("#plugpress-form-buy");
-	f.get(0).setAttribute('action', '<?php echo PLUGPRESS::WEBSITE_URL; ?>buy/theme');
+	f.get(0).setAttribute('action', '<?php echo PLUGPRESS::WEBSITE_URL_SSL; ?>buy/theme');
 	f.submit();
 	jQuery('#plugpress-mask').hide();
 	jQuery('.plugpress-modal').hide();

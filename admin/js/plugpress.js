@@ -105,14 +105,13 @@ jQuery(document).ready(function ($) {
 		});
 
 		//transition effect
-		//msk.fadeIn(500);
 		msk.fadeTo("fast",0.75);
 
 		//Get the window height and width
 		var winH = $(window).height();
 		var winW = $(window).width();
 
-		console.log('w: ' + winW + ', h: ' + winH);
+		//console.log('w: ' + winW + ', h: ' + winH);
 
 		//Set the popup window to center
 		$(id).css('top',  winH/4 - $(id).height()/2);

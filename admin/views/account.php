@@ -35,12 +35,12 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<script type="text/javascript">
 		function plugpress_create_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/new');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL_SSL; ?>account/new');
 			f.submit();
 		}
 		function plugpress_link_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/link');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL_SSL; ?>account/link');
 			f.submit();
 		}
 	</script>
@@ -51,7 +51,7 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 	<script type="text/javascript">
 		function plugpress_unlink_account() {
 			var f = jQuery("#plugpress-form-account");
-			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL; ?>account/unlink');
+			f.get(0).setAttribute('action', '<?php echo PlugPress::WEBSITE_URL_SSL; ?>account/unlink');
 			f.submit();
 			var data = {
 				action: 'plugpress_unlink_account'
