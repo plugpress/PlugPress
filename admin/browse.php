@@ -52,7 +52,13 @@ class PlugPress_Browse_Admin {
 	public function view() {
 		global $plugpress;
 
-		if ( $this->context == 'home' ) {
+		if ( is_wp_error( $this->data ) ) {
+			$msg = PlugPress_Admin::get_error_message( $this->data );
+			$plugpress->admin->error = $msg;
+
+			include( $plugpress->admin->admin_dir . 'views/error.php' );
+		}
+		elseif ( $this->context == 'home' ) {
 			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
 		}

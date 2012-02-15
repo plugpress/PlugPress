@@ -18,6 +18,8 @@ if ( !class_exists( 'PlugPress_Admin' ) ) :
  */
 class PlugPress_Admin {
 
+	public $error = null;
+
 	public $admin_dir = '';
 	public $admin_url = '';
 	public $images_url = '';
@@ -203,6 +205,30 @@ class PlugPress_Admin {
 	 */
 	public function menu_my_account() {
 		do_action( 'plugpress_account_view' );
+	}
+
+	/**
+	 * Generate error message to output.
+	 *
+	 * @param WP_ERROR $err
+	 * @return string
+	 */
+	public static function get_error_message($err) {
+		$msg = _( 'Unknown error.', 'plugpress' );
+
+		if ( is_wp_error( $err ) ) {
+			foreach( $err->errors as $tag => $description ) {
+				if ( 'http_request_failed' == $tag ) {
+					$msg = esc_html( _('PlugPress is not able to get data from its own server. ' .
+							'The problem is usually caused by web hosts who block remote connections. ' .
+							'Please check with your host then contact the PlugPress team.', 'plugpress' ) );
+					break;
+				}
+				$msg .= esc_html( $description ) . '<br />';
+			}
+		}
+
+		return $msg;
 	}
 }
 

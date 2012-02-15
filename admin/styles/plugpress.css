@@ -239,3 +239,17 @@ a.plugpress-thumbnail-prev, a.plugpress-thumbnail-next{display: inline-block; he
 	-moz-border-radius: 12px;
 	border:5px solid #7bc200;
 }
+
+
+/*************************************************************************************************/
+.plugpress-error-global {
+	background-color: #FFEBE8;
+	border-color: #C00;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border-width: 1px;
+	border-style: solid;
+	margin:30px auto;
+	padding:0 15px 15px 15px;
+	width:450px;
+}

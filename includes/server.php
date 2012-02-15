@@ -73,8 +73,11 @@ class PlugPress_Server {
 				);
 
 			#var_dump( wp_remote_retrieve_body( $raw_response ) );exit;
-
-			if ( $raw_response !== false ) {
+			
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				set_transient( $transient_name, $content, $this->home_cache_delay );
 			}
