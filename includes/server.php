@@ -73,7 +73,7 @@ class PlugPress_Server {
 				);
 
 			#var_dump( wp_remote_retrieve_body( $raw_response ) );exit;
-			
+
 			if ( is_wp_error( $raw_response ) ) {
 				return $raw_response;
 			}
@@ -115,7 +115,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body( $raw_response ));
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				if ( isset( $content->username ) ) {
 					$user = $content->username;
@@ -170,7 +173,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body($raw_response));exit;
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				if (isset($content->purchases)) {
 					$purchases = $content->purchases;
@@ -215,7 +221,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body($raw_response));
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				set_transient( $transient_name, $content, $this->plugin_information_cache_delay );
 			}
@@ -259,7 +268,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body($raw_response));
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				set_transient( $transient_name, $content, $this->plugins_cache_delay );
 			}
@@ -301,7 +313,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body($raw_response));
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				set_transient( $transient_name, $content, $this->theme_information_cache_delay );
 			}
@@ -345,7 +360,10 @@ class PlugPress_Server {
 
 			#var_dump(wp_remote_retrieve_body($raw_response));
 
-			if ( $raw_response !== false ) {
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			}
+			else {
 				$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
 				set_transient( $transient_name, $content, $this->themes_cache_delay );
 			}

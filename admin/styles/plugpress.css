@@ -67,7 +67,7 @@ h3 .plugpress-nav-tab {
 
 .plugpress-span-plugin-normal{width: 97px;}
 .plugpress-span-theme-normal{width: 173px;}
-.plugpress-td-plugin-normal, .plugpress-td-theme-normal{vertical-align: top;}
+.plugpress-td-plugin-normal, .plugpress-td-theme-normal{vertical-align: top; overflow:hidden}
 .plugpress-td-plugin-normal a, .plugpress-td-theme-normal a{text-decoration: none;}
 .plugpress-span-plugin-normal, .plugpress-span-theme-normal{
     font-family: arial,sans-serif;

@@ -48,7 +48,6 @@ class PlugPress_Account_Admin {
 
 		add_action( 'wp_ajax_plugpress_unlink_account', array( &$this, 'unlink_callback' ) );
 
-
 	}
 
 	/**
@@ -57,7 +56,15 @@ class PlugPress_Account_Admin {
 	public function view() {
 		global $plugpress;
 
-		include( $plugpress->admin->admin_dir . 'views/account.php' );
+		if ( is_wp_error( $this->purchases ) ) {
+			$msg = PlugPress_Admin::get_error_message( $this->purchases );
+			$plugpress->admin->error = $msg;
+
+			include( $plugpress->admin->admin_dir . 'views/error.php' );
+		}
+		else {
+			include( $plugpress->admin->admin_dir . 'views/account.php' );
+		}
 	}
 
 	/**
@@ -70,6 +77,8 @@ class PlugPress_Account_Admin {
 		// Call external data (if needed)
 		$serv = new PlugPress_Server();
 
+		$this->purchases = $serv->get_user_purchases($plugpress->admin->website_url, $plugpress->admin->website_key);
+
 		$this->user = $serv->get_linked_user( $plugpress->admin->website_url, $plugpress->admin->website_key );
 
 		if ( ! isset($plugpress->user ) ) {
@@ -79,8 +88,6 @@ class PlugPress_Account_Admin {
 		if ( strpos( $plugpress->username, ' ') === 0 ) {
 			add_action( 'admin_notices', array( &$this, 'unconfirmedAccount' ) );
 		}
-
-		$this->purchases = $serv->get_user_purchases($plugpress->admin->website_url, $plugpress->admin->website_key);
 	}
 
 	/**
@@ -104,6 +111,9 @@ class PlugPress_Account_Admin {
 		add_contextual_help( $current_screen, $help . $help_link);
 	}
 
+	/**
+	 * Unconfirmed account warning message
+	 */
 	public function unconfirmedAccount() {
 		echo '<div class="updated"><p><b>' .  __( 'Your account is unconfirmed. Check your emails (including your SPAM) and confirm it by clicking on confirmation link.', 'plugpress' ) . '</b></p></div>';
 	}
@@ -117,8 +127,6 @@ class PlugPress_Account_Admin {
 
 		$user = delete_site_option($option_name);
 		$user_check = delete_site_transient($transient_name);
-
-
 
 		die();
 	}

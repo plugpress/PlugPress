@@ -126,7 +126,7 @@ class PlugPress_Admin {
 					'plugpress-browse',
 					array( &$this, 'menu_browse' ),
 					$this->images_url . 'icon16.png',
-					3
+					null
 		);
 
 		$browse_page_alt = add_submenu_page( 'plugpress-browse',
@@ -145,9 +145,9 @@ class PlugPress_Admin {
 				array( &$this, 'menu_my_account' )
 		);
 
-		add_action('load-' . $browse_page_alt, array( &$this, 'include_browse' ) );
-		add_action('load-' . $browse_page, array( &$this, 'include_browse' ) );
-		add_action('load-' . $account_page, array( &$this, 'include_account' ) );
+		add_action( 'load-' . $browse_page_alt, array( &$this, 'include_browse' ) );
+		add_action( 'load-' . $browse_page, array( &$this, 'include_browse' ) );
+		add_action( 'load-' . $account_page, array( &$this, 'include_account' ) );
 
 		/*
 		add_submenu_page('plugpress-browse',
@@ -219,7 +219,7 @@ class PlugPress_Admin {
 		if ( is_wp_error( $err ) ) {
 			foreach( $err->errors as $tag => $description ) {
 				if ( 'http_request_failed' == $tag ) {
-					$msg = esc_html( _('PlugPress is not able to get data from its own server. ' .
+					$msg = esc_html( _( 'PlugPress is not able to get data from its own server. ' .
 							'The problem is usually caused by web hosts who block remote connections. ' .
 							'Please check with your host then contact the PlugPress team.', 'plugpress' ) );
 					break;
