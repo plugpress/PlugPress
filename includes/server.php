@@ -75,6 +75,7 @@ class PlugPress_Server {
 			#var_dump( wp_remote_retrieve_body( $raw_response ) );exit;
 
 			if ( is_wp_error( $raw_response ) ) {
+				#var_dump( $raw_response );
 				return $raw_response;
 			}
 			else {

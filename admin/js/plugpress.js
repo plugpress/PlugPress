@@ -68,14 +68,19 @@
 				return;
 			}
 
+			//parent
+			var parentpos = this.tip.parent().offset();
+
 			// Center the tip and start a fadeIn animation
-			this.tip.css('top',  - (this.tip.outerHeight() + 10));
-			this.tip.css('left', 0); //left);
+			this.tip.css('top',  parentpos.top - $(window).scrollTop() - (this.tip.outerHeight() + 10) + 'px');
+			this.tip.css('left', (parentpos.left) + 'px');
+
 			this.tip.css('z-index', 999999);
 			this.tip.fadeIn('fast');
 			this.shown = true;
+			//alert('tip = top: ' + parentpos.top + '. left: ' + parentpos.left + "\n" + 'top: ' + this.tip.css('top') + '. left: ' + this.tip.css('left'));
 		},
-		hide: function (num) {
+		hide: function () {
 			this.tip.hide();
 			this.shown = false;
 		}
