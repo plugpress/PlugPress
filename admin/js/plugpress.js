@@ -76,6 +76,7 @@
 			this.tip.css('left', (parentpos.left) + 'px');
 
 			this.tip.css('z-index', 999999);
+			this.tip.css('overflow', 'hidden');
 			this.tip.fadeIn('fast');
 			this.shown = true;
 			//alert('tip = top: ' + parentpos.top + '. left: ' + parentpos.left + "\n" + 'top: ' + this.tip.css('top') + '. left: ' + this.tip.css('left'));
