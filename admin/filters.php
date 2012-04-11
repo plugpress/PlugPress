@@ -17,6 +17,10 @@ if ( !defined( 'ABSPATH' ) ) exit;
  *
  */
 function plugpress_plugins_api($res, $action, $args) {
+	global $plugpress;
+
+	#var_dump($args);
+
 	if (strpos($args->slug, 'plugpress-') === 0) {
 		$request = wp_remote_post(PlugPress::API_URL . 'infoplugin',
 				array(
@@ -27,6 +31,8 @@ function plugpress_plugins_api($res, $action, $args) {
 							'request' => serialize($args),
 							'version' => '1.0',
 							'lng' => get_bloginfo('language'),
+							'key' => $plugpress->admin->website_key,
+							'url' => $plugpress->admin->website_url
 						)
 					)
 				);
@@ -56,6 +62,8 @@ function plugpress_plugins_api($res, $action, $args) {
  *
  */
 function plugpress_themes_api($res, $action, $args) {
+	global $plugpress;
+
 	if (strpos($args->slug, 'plugpress-') === 0) {
 
 		$request = wp_remote_post(PlugPress::API_URL . 'infotheme',
@@ -67,12 +75,14 @@ function plugpress_themes_api($res, $action, $args) {
 							'request' => serialize($args),
 							'version' => '1.0',
 							'lng' => get_bloginfo('language'),
+							'key' => $plugpress->admin->website_key,
+							'url' => $plugpress->admin->website_url
 						)
 					)
 				);
 
 
-		#var_dump(wp_remote_retrieve_body( $request ));
+		#var_dump(/*wp_remote_retrieve_body*/( $request ));exit;
 
 		if ( is_wp_error($request) ) {
 			$res = new WP_Error('themes_api_failed', __('An Unexpected HTTP Error occurred during the API request.'), $request->get_error_message() );
@@ -100,6 +110,8 @@ function plugpress_themes_api($res, $action, $args) {
  *
  */
 function plugpress_pre_set_site_transient_update_plugins($value) {
+	global $plugpress;
+
 	// If plugins were not checked yet, don't continue
 	if (!isset($value->checked)) {
 		#return $value;
@@ -128,7 +140,12 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 
 	$options = array(
 		'timeout' => ( ( defined('DOING_CRON') && DOING_CRON ) ? 30 : 3),
-		'body' => array('action' => 'update-check', 'plugins' => serialize( $to_send ) ),
+		'body' => array(
+			'action' => 'update-check',
+			'plugins' => serialize( $to_send ),
+			'key' => $plugpress->admin->website_key,
+			'url' => $plugpress->admin->website_url
+			),
 		'user-agent' => 'PlugPress/' . PLUGPRESS_VERSION . '; ' . get_bloginfo( 'url' ) . '; WP-' . $wp_version
 		);
 
@@ -184,6 +201,8 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
  * @return mixed Returns null if update is unsupported. Returns false if check is too soon.
  */
 function plugpress_pre_set_site_transient_update_themes($value) {
+	global $plugpress;
+
 	include ABSPATH . WPINC . '/version.php'; // include an unmodified $wp_version
 
 	if (!function_exists('get_themes')) {
@@ -218,7 +237,11 @@ function plugpress_pre_set_site_transient_update_themes($value) {
 
 	$options = array(
 		'timeout' => ( ( defined('DOING_CRON') && DOING_CRON ) ? 30 : 3),
-		'body'			=> array( 'themes' => serialize( $themes ) ),
+		'body' => array(
+			'themes' => serialize( $themes ),
+			'key' => $plugpress->admin->website_key,
+			'url' => $plugpress->admin->website_url
+			),
 		'user-agent' => 'PlugPress/' . PLUGPRESS_VERSION . '; ' . get_bloginfo( 'url' ) . '; WP-' . $wp_version
 	);
 

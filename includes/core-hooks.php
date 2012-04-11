@@ -49,7 +49,6 @@ function plugpress_init() {
  * Unlink user callback in the database (ajax)
  */
 function plugpress_unlink_callback() {
-	//print 'ok';exit;
 	$option_name = 'plugpress_account_user';
 	$transient_name = $option_name . '_check';
 
