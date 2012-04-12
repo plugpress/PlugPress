@@ -166,6 +166,8 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 
 	$new_option = new stdClass;
 	$new_option->last_checked = time();
+	$new_option->response = $response;
+	/*
 	if ( false !== $response ) {
 		$url = urlencode( get_bloginfo( 'siteurl' ) );
 		$key = urlencode( md5( LOGGED_IN_KEY ) . md5( $plugpress->admin->website_url ) );
@@ -181,6 +183,7 @@ function plugpress_pre_set_site_transient_update_plugins($value) {
 	else {
 		$new_option->response = array();
 	}
+	*/
 
 	set_site_transient( 'plugpress_update_plugins', $new_option );
 
