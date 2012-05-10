@@ -3,7 +3,7 @@
 Plugin Name: PlugPress
 Plugin URI: http://www.plugpress.com
 Description: <strong>Find and install free or premium plugins and themes directly from your WordPress website.</strong>
-Version: 0.9.0
+Version: 0.9.2
 Author: PlugPress.com
 Author URI: http://www.plugpress.com
 License: GPLv2
@@ -30,7 +30,7 @@ class PlugPress {
 	const WEBSITE_URL_SSL = 'https://secure.plugpress.com/';
 	const API_URL = 'http://api.plugpress.com/';
 
-	public $version = '0.9.0';
+	public $version = '0.9.2';
 
 	public $plugin_url = '';
 	public $plugin_dir = '';

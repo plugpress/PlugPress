@@ -593,7 +593,7 @@ function plugpress_theme_metaboxes( $data ) {
 
 	// Description
 	add_meta_box(
-			'plugpress-plugindetail-description',
+			'plugpress-themedetail-description',
 			esc_html(__('Description', 'plugpress')),
 			'plugpress_html_metabox',
 			'plugpress-split-left',
@@ -605,10 +605,10 @@ function plugpress_theme_metaboxes( $data ) {
 	// Screenshots
 	if (is_array($data->content->theme->screenshots) && count($data->content->theme->screenshots) > 0) {
 		add_meta_box(
-			'plugpress-plugindetail-screenshots',
+			'plugpress-themedetail-screenshots',
 			esc_html(__('Screenshots', 'plugpress')),
 			'plugpress_theme_screenshots',
-			'plugpress-themedetail-left',
+			'plugpress-split-left',
 			'advanced',
 			'default',
 			array(
@@ -746,19 +746,34 @@ function plugpress_theme_screenshots( $context, $args ) {
 	$content = '<div class="plugpress-thumbnail-carousel">';
 	$content .= '<div id="plugpress-images">';
 	foreach( $data as $scr ) {
-		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'themes/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . $scr['description'] . '">';
+		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'themes/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . esc_attr($scr['description']) . '">';
 		$content .= '<img src="' . $httpstatic . 'themes/' . $slug . '/screenshot-' . $scr['num'] . '_small.' . $scr['sext'] . '" alt="no image" class="plugpress-carousel-image" />';
 		$content .= '</a>';
 	}
 	$content .= '</div>';
 	$content .= '<div class="plugpress-clearfix"></div>';
-	$content .= '<a class="plugpress-thumbnail-prev" id="plugpress-thumbnail-prev" href="#"><span>prev</span></a>';
-	$content .= '<a class="plugpress-thumbnail-next" id="plugpress-thumbnail-next" href="#"><span>next</span></a>';
 	$content .= '<div class="plugpress-thumbnail-pagination" id="plugpress-pagination"></div>';
 	$content .= '</div>';
 
 	echo  $content;
 }
+
+/*
+	$content = '<div class="plugpress-thumbnail-carousel">';
+	$content .= '<div id="plugpress-images">';
+	foreach($data as $scr) {
+		$content .= '<a rel="prettyPhoto[caroufredsel]" href="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '.' . $scr['bext'] . '" desc="' . esc_attr($scr['description']) . '">';
+		$content .= '<img src="' . $httpstatic . 'plugins/' . $slug . '/screenshot-' . $scr['num'] . '_small.' . $scr['sext'] . '" alt="no image" class="plugpress-carousel-image" />';
+		$content .= '</a>';
+	}
+	$content .= '</div>';
+	$content .= '<div class="plugpress-clearfix"></div>';
+	$content .= '<div class="plugpress-thumbnail-pagination" id="plugpress-pagination"></div>';
+	$content .= '</div>';
+
+	echo  $content;
+*/
+
 
 
 /**
@@ -781,10 +796,11 @@ function plugpress_theme_information_metabox( $context, $args ) {
 		$content .= '<b>' . esc_html( __( 'Requirements', 'plugpress' ) ) . ':</b><br />';
 		$content .=  esc_html( __( 'WordPress', 'plugpress' ) ) . ' ' . esc_html( $data->wordpressrequired ) . '+<br /><br />';
 	}
-	if (isset($data->demourl)) {
-		$content .= '<b>' . esc_html( __( 'Demo', 'plugpress' ) ) . ':</b><br />';
-		$content .= '<a href="'. $data->demourl .'" target="_blank">' . esc_html( __( 'View theme in action', 'plugpress' ) ) . '</a><br /><br />';
-	}
+
+	#if (isset($data->demourl)) {
+	#	$content .= '<b>' . esc_html( __( 'Demo', 'plugpress' ) ) . ':</b><br />';
+	#	$content .= '<a href="'. $data->demourl .'" target="_blank">' . esc_html( __( 'View theme in action', 'plugpress' ) ) . '</a><br /><br />';
+	#}
 
 
 	if ( $data->purchases > 0 ) {

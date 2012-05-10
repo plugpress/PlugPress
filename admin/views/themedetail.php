@@ -2,6 +2,8 @@
 //
 // Plugin Detail View
 //
+
+global $plugpress;
 ?>
 
 <style type="text/css">
@@ -145,6 +147,10 @@ require( $plugpress->admin->admin_dir . 'views/_header.php' );
 				<?php esc_html_e(__('Buy Now', 'plugpress')); ?>
 			<?php endif; ?>
 			</a>
+			<br />
+			<?php if ($plugpress->theme->price != null && $plugpress->theme->price != '') : ?>
+			<a href="<?php echo $plugpress->theme->demourl; ?>" target="_blank" class="plugpress-trynow" style="background: #7599B9;"><?php esc_html_e(__('Try it Now', 'plugpress')); ?></a>
+			<?php endif; ?>
 		</div>
 		<div id="plugpress-right-boxes" class="metabox-holder">
 			<div class='postbox-container plugpress-postbox-container'>
@@ -182,6 +188,7 @@ jQuery(document).ready(function($) {
 		circular: false,
 		infinite: false,
 		auto : false,
+		pagination: '#plugpress-pagination',
 		prev : {
 			button		: "#plugpress-thumbnail-prev",
 			key			: "left",

@@ -135,6 +135,8 @@ h3 .plugpress-nav-tab {
 .plugpress-buynow-box{margin-bottom:15px;}
 .plugpress-buynow{border: 1px solid #CCC; border-bottom-color: #517e03; border-right-color: #517e03; color: #f6f6f6; display:block; font-size: 1.4em; font-weight: bold; line-height:2em; text-align:center; text-decoration:none; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
 .plugpress-buynow:hover{color:#FFF; text-shadow: 1px 1px 1px #000;}
+.plugpress-trynow{border: 1px solid #CCC; border-bottom-color: #7599B9; border-right-color: #7599B9; color: #f6f6f6; display:block; font-size: 1.1em; font-weight: bold; line-height:1.85em; text-align:center; text-decoration:none; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;}
+.plugpress-trynow:hover{color:#FFF; text-shadow: 1px 1px 1px #000;}
 
 .plugpress-carousel-image{height:110px; width:160px;}
 

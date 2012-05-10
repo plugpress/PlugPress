@@ -37,6 +37,13 @@ check our [Terms of Service](http://www.plugpress.com/terms) as some plugins and
 
 == Changelog ==
 
+= 0.9.2 =
+ * Language bug fix
+
+= 0.9.1 =
+ * UI improvement
+ * Bug fixes
+
 = 0.9.0 =
 * Added management for bought themes and plugins.
 * Minor improvements and bug fixes.

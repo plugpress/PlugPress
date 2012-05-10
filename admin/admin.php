@@ -63,7 +63,7 @@ class PlugPress_Admin {
 		$this->js_url = trailingslashit( $this->admin_url . 'js' );
 
 		// Website URL
-		$this->website_url = get_bloginfo( 'siteurl' );
+		$this->website_url = get_bloginfo( 'url' );
 
 		// Website "secret" key
 		$this->website_key = md5( LOGGED_IN_KEY ) . md5( $this->website_url );
@@ -214,12 +214,12 @@ class PlugPress_Admin {
 	 * @return string
 	 */
 	public static function get_error_message($err) {
-		$msg = _( 'Unknown error.', 'plugpress' );
+		$msg = __( 'Unknown error.', 'plugpress' );
 
 		if ( is_wp_error( $err ) ) {
 			foreach( $err->errors as $tag => $description ) {
 				if ( 'http_request_failed' == $tag ) {
-					$msg = esc_html( _( 'PlugPress is not able to get data from its own server. ' .
+					$msg = esc_html( __( 'PlugPress is not able to get data from its own server. ' .
 							'The problem is usually caused by web hosts who block remote connections. ' .
 							'Please check with your host then contact the PlugPress team.', 'plugpress' ) );
 					break;
