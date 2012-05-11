@@ -282,6 +282,42 @@ class PlugPress_Server {
 	}
 
 	/**
+	 * Search plugins
+	 *
+	 * @param string $query Query
+	 * @param int $page Page to display
+	 *
+	 * @return class Data on success, otherwise FALSE.
+	 */
+	public function search_plugins( $query, $page = 1 ) {
+
+		$content = new StdClass;
+		$content->last_checked = time();
+		$raw_response = wp_remote_post( PLUGPRESS::API_URL . 'searchplugins/',
+				array( 'body' =>
+					array(
+						'q' => $query,
+						'page' => $page,
+						'version' => '1.0',
+						'lng' => get_bloginfo( 'language' )
+					)
+				)
+			);
+
+		#var_dump(wp_remote_retrieve_body($raw_response));
+
+		if ( is_wp_error( $raw_response ) ) {
+			return $raw_response;
+		}
+		else {
+			$content->value = unserialize( wp_remote_retrieve_body( $raw_response ) );
+		}
+
+
+		return $content->value;
+	}
+
+	/**
 	 * Get the data for a specific theme
 	 *
 	 * Try to get the content from the cache.  If the content does not exist or if

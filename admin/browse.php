@@ -62,6 +62,10 @@ class PlugPress_Browse_Admin {
 			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
 		}
+		elseif ( $this->context == 'search' ) {
+			plugpress_split_metaboxes( $this->data );
+			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
+		}
 		elseif ( $this->context == 'plugins' ) {
 			plugpress_split_metaboxes( $this->data );
 			include( $plugpress->admin->admin_dir . 'views/left-right-content.php' );
@@ -121,6 +125,21 @@ class PlugPress_Browse_Admin {
 			if ( isset( $_GET['pppage'] ) && ctype_digit($_GET['pppage'] ) ) $page = $_GET['pppage'];
 
 			$this->data = $serv->get_plugins( $page, $category );
+		}
+		elseif ( $_GET['ppsubpage'] == 'search' ) {
+			$this->context = 'search';
+			$plugpress->admin->tab = 'plugins';
+
+			// Slug
+			$query = $_GET['ppq'];
+
+			// Page
+			$page = 1;
+			if ( isset( $_GET['pppage'] ) && ctype_digit($_GET['pppage'] ) ) $page = $_GET['pppage'];
+
+			#var_dump($query, $page);exit;
+
+			$this->data = $serv->search_plugins( $query, $page );
 		}
 		elseif ( $_GET['ppsubpage'] == 'themes' ) {
 			$this->context = 'themes';

@@ -14,3 +14,4 @@
 <?php /*<a href="<?php echo admin_url('admin.php?page=plugpress&ppsubpage=feedback'); ?>" class="plugpress-nav-tab<?php if ($plugpressView->internal->controller == 'feedback'){ echo ' plugpress-nav-tab-active'; } ?>"><?php esc_html_e('Feedback', 'plugpress'); ?></a>*/ ?>
 <?php endif; ?>
 </h3>
+

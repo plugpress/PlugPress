@@ -2,8 +2,8 @@
 Contributors: plugpress
 Tags: plugpress, plugins, themes, find plugins, find themes, app store, store, sell, buy
 Requires at least: 3.2
-Tested up to: 3.3.1
-Stable tag: 0.9.0
+Tested up to: 3.3.2
+Stable tag: 0.9.3
 
 PlugPress is an app store that enables you to find the best plugins and themes for your website.
 
@@ -36,6 +36,9 @@ check our [Terms of Service](http://www.plugpress.com/terms) as some plugins and
 
 
 == Changelog ==
+
+= 0.9.3 =
+ * Added the search engine for plugins.
 
 = 0.9.2 =
  * Language bug fix

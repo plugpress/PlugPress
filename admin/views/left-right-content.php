@@ -31,6 +31,12 @@ require( $plugpress->admin->admin_dir . 'views/_menu.php' );
 	<div id="plugpress-content-right">
 		<div id="plugpress-right-boxes" class="metabox-holder">
 			<div class='postbox-container plugpress-postbox-container'>
+				<div style="margin-bottom:20px;text-align:right;">
+					<form id="search-form" onsubmit="return plugpress_search()" method="get">
+						<input type="text" style="font-weight:normal;width:100%" id="plugin-search" value="<?php echo isset($_GET['ppq']) ? esc_attr($_GET['ppq']) : ''; ?>" name="search" />
+						<input type="submit" style="font-weight:normal;margin-top:8px" class="button" name="submit" value="<?php esc_html_e('Search plugins', 'plugpress'); ?>" />
+					</form>
+				</div>
 				<?php do_meta_boxes( 'plugpress-split-right', 'advanced', null ); ?>
 			</div>
 		</div>

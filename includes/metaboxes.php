@@ -161,7 +161,7 @@ function plugpress_plugins_box_metabox($context, $args) {
 		$content .= '<div class="plugpress-box-prefooter ' . $footerclass .'">' . $footer . '</div>';
 	}
 	else {
-		$content = '<p>' . esc_html(__('Sorry, that category does not contain any plugins yet.', 'plugpress')) . '</p>';
+		$content = '<p>' . esc_html(__('Sorry, no plugins matching your criterias were found.', 'plugpress')) . '</p>';
 	}
 
 	echo $content;
@@ -200,18 +200,22 @@ function plugpress_plugins_list_metabox($context, $args) {
 		}
 		$content .= '</table>';
 		$slug = '';
+		$url = 'admin.php?page=plugpress-browse&ppsubpage=plugins'. $slug .'&pppage=';
 		if ($box->options['category'] != '') {
 			$slug = '&ppslug=' . $box->options['category'];
+		}
+		elseif ($box->options['search'] != '') {
+			$url = 'admin.php?page=plugpress-browse&ppsubpage=search&ppq='. $box->options['search'] .'&pppage=';
 		}
 		$pagination = PlugPress_Misc::generate_pagination(
 				$box->options['page'],
 				$box->options['pagecount'],
-				'admin.php?page=plugpress-browse&ppsubpage=plugins'. $slug .'&pppage=');
+				$url);
 
 		$content .= '<div class="plugpress-box-prefooter">' . $pagination . '</div>';
 	}
 	else {
-		$content = '<p>' . esc_html(__('Sorry, that category does not contain any plugins yet.', 'plugpress')) . '</p>';
+		$content = '<p>' . esc_html(__('Sorry, no plugins matching your criterias were found.', 'plugpress')) . '</p>';
 	}
 
 	echo $content;

@@ -203,4 +203,15 @@ function CountdownAndCall(func_name, seconds, displayid){
 	}
 }
 
+// Search
+function plugpress_search() {
+	var search = document.getElementById('plugin-search').value;
+	if (search.length >= 1) {
+		search = escape(search);
+		var newurl = "admin.php?page=plugpress-browse&ppsubpage=search&ppq=" + search;
+		top.location.href = newurl;
+		return false;
+	}
+}
+
 
